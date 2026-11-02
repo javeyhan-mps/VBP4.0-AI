@@ -1,0 +1,17 @@
+﻿<Page x:Class="VirtualBenchPro_v4.MB_SaveConfiguration"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      MinHeight="98" Width="417"
+      Title="MB_CheckDongle">
+
+    <Grid Background="White" Margin="0,0,0,2">
+        <Image HorizontalAlignment="Left" Height="30" Margin="15,10,0,0" VerticalAlignment="Top" Width="30" Source="/VirtualBenchPro_v4;component/Images/Temporal_Icon_2.PNG"/>
+        <Label Content="Would you like to save current configuration of the device? " Margin="55,10,15,0" VerticalAlignment="Top" Height="30"  FontFamily="Arial" FontWeight="Bold" Padding="0" VerticalContentAlignment="Center" />
+        <Button Style="{StaticResource MessageButtonRounded}" Content="OK" Width="81" Margin="0,0,12,14" FontFamily="Arial" FontSize="10" Foreground="#FF6D7278" Padding="1" BorderBrush="#FF979797" Background="#FFD8D8D8" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="Ok_Button_Click"/>
+        <Button Style="{StaticResource MessageButtonRounded}" Content="Cancel" Width="81" Margin="0,0,103,14" FontFamily="Arial" FontSize="10" Foreground="#FF6D7278" Padding="1" BorderBrush="#FF979797" Background="White" Click="Cancel_Button_Click" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+        <CheckBox Content="Don't show again" HorizontalAlignment="Left" Margin="15,0,0,14" VerticalAlignment="Bottom" FontFamily="Arial" VerticalContentAlignment="Center"/>
+    </Grid>
+</Page>

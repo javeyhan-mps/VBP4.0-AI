@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This file is compatible with Silverlight-->
+<Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Name="svg10" Width="8" Height="8">
+  <Canvas.RenderTransform>
+    <TranslateTransform X="0" Y="0"/>
+  </Canvas.RenderTransform>
+  <Canvas.Resources/>
+  <!--Unknown tag: metadata-->
+  <!--Unknown tag: sodipodi:namedview-->
+  <Canvas Name="g8">
+    <Ellipse xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="0.3" Canvas.Top="0.3" Width="7.5" Height="7.5" Name="circle2" StrokeThickness=".5" Stroke="#FFCBD5E3"/>
+    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path4" StrokeThickness=".5" Stroke="#FFCBD5E3" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M4 5.778V3.556"/>
+    <Ellipse xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Canvas.Left="3" Canvas.Top="1.2" Width="2" Height="2" Name="circle6" StrokeThickness=".5" Stroke="#FFCBD5E3"/>
+  </Canvas>
+</Canvas>

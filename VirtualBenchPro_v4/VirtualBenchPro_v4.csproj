@@ -1,0 +1,1924 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8A57C0F7-5AE6-4596-997E-86A551911B2E}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>VirtualBenchPro_v4</RootNamespace>
+    <AssemblyName>VirtualBenchPro_v4</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Images\128x128_m-blue.ico</ApplicationIcon>
+    <RuntimeIdentifiers>win-x86;win-x64;win-arm;win-arm64</RuntimeIdentifiers>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CalcBinding, Version=2.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>Dll\CalcBinding.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dll\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dll\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>Dll\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>Dll\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.ShellExtensions, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>Dll\Microsoft.WindowsAPICodePack.ShellExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="MPS.AutoUpdate.Interact, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\pd_controller_gui\VirtualBenchPro_v4\Dll\MPS.AutoUpdate.Interact.dll</HintPath>
+    </Reference>
+    <Reference Include="MPS.Controls, Version=1.0.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dll\MPS.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="MPS.VBP.AutoScan, Version=1.0.0.16, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dll\MPS.VBP.AutoScan.dll</HintPath>
+    </Reference>
+    <Reference Include="MPS.VBP.Communication, Version=1.0.0.377, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dll\MPS.VBP.Communication.dll</HintPath>
+    </Reference>
+    <Reference Include="MPS.VBP.Monitor, Version=1.0.0.449, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dll\MPS.VBP.Monitor.dll</HintPath>
+    </Reference>
+    <Reference Include="MPS.VBP.MTPConfig, Version=1.0.0.123, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dll\MPS.VBP.MTPConfig.dll</HintPath>
+    </Reference>
+    <Reference Include="MPS.VBP.Parts, Version=1.0.0.186, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dll\MPS.VBP.Parts.dll</HintPath>
+    </Reference>
+    <Reference Include="MPS.VBP.Script, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dll\MPS.VBP.Script.dll</HintPath>
+    </Reference>
+    <Reference Include="MPS.VBP.StateMachineDiagram, Version=1.0.0.5, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dll\MPS.VBP.StateMachineDiagram.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite">
+      <HintPath>Dll\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dll\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="AttachedBehaviors\DataGridColumnsBehavior.cs" />
+    <Compile Include="Classes\Authorization.cs" />
+    <Compile Include="Classes\BusyIndicator.cs" />
+    <Compile Include="Classes\ControlManager.cs" />
+    <Compile Include="Classes\Help.cs" />
+    <Compile Include="Classes\Help_Group.cs" />
+    <Compile Include="Classes\HexFileCrypto.cs" />
+    <Compile Include="Classes\JsonObject.cs" />
+    <Compile Include="Classes\LicenseInfo.cs" />
+    <Compile Include="Classes\ModuleValue.cs" />
+    <Compile Include="Classes\ProductListHelper.cs" />
+    <Compile Include="Classes\Settings.cs" />
+    <Compile Include="ConstantModel.cs" />
+    <Compile Include="Converter\PossibleValueConverter.cs" />
+    <Compile Include="Evaluation_View.xaml.cs">
+      <DependentUpon>Evaluation_View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\ItemsControlHelper.cs" />
+    <Compile Include="Helper\ScrollViewerHelper.cs" />
+    <Compile Include="Helper\WindowHelper.cs" />
+    <Compile Include="RegisterTool.xaml.cs">
+      <DependentUpon>RegisterTool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="System_View.xaml.cs">
+      <DependentUpon>System_View.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TemplateSelector\BitControlSelector.cs" />
+    <Compile Include="TemplateSelector\CategoryStyleSelector.cs" />
+    <Compile Include="TemplateSelector\CustomerSelector.cs" />
+    <Compile Include="TemplateSelector\DetailRegMap_BitControlSelector.cs" />
+    <Compile Include="TemplateSelector\MonitorInputParamSelector.cs" />
+    <Compile Include="TemplateSelector\ParamGroupTemplateSelector.cs" />
+    <Compile Include="TemplateSelector\ParamsOverviewSelector.cs" />
+    <Compile Include="TemplateSelector\SubcategoryStyleSelector.cs" />
+    <Compile Include="ViewModel\ChannelParameterView.cs" />
+    <Compile Include="ViewModel\DetailedRegisterMapView.cs" />
+    <Compile Include="ViewModel\SetFriendlyNameWindowViewModel.cs" />
+    <Compile Include="ViewModel\ChooseChipWindowViewModel.cs" />
+    <Compile Include="ViewModel\DeviceInfo.cs" />
+    <Compile Include="ViewModel\DeviceParameterView.cs" />
+    <Compile Include="ViewModel\DeviceView.cs" />
+    <Compile Include="ViewModel\MatchAddressView.cs" />
+    <Compile Include="ViewModel\RegisterToolView.cs" />
+    <Compile Include="ViewModel\SystemView.cs" />
+    <Compile Include="ViewModel\ProjectToolsView.cs" />
+    <Compile Include="ViewModel\WinAboutView.cs" />
+    <Compile Include="Views\CustomElements\BitControlViews\MinMaxType.xaml.cs">
+      <DependentUpon>MinMaxType.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomElements\CircularProgressBar.xaml.cs">
+      <DependentUpon>CircularProgressBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomElements\CloseConfirmation.xaml.cs">
+      <DependentUpon>CloseConfirmation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomElements\Help_Icon.xaml.cs">
+      <DependentUpon>Help_Icon.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomElements\Image_Viewer.xaml.cs">
+      <DependentUpon>Image_Viewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomElements\LicenseInactive.xaml.cs">
+      <DependentUpon>LicenseInactive.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomElements\LicenseOffline.xaml.cs">
+      <DependentUpon>LicenseOffline.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomElements\LicenseActive.xaml.cs">
+      <DependentUpon>LicenseActive.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomElements\LicenseExpired.xaml.cs">
+      <DependentUpon>LicenseExpired.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomElements\LicenseExpiring.xaml.cs">
+      <DependentUpon>LicenseExpiring.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomElements\MenuButton.xaml.cs">
+      <DependentUpon>MenuButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomElements\Module_Button.xaml.cs">
+      <DependentUpon>Module_Button.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomElements\Fault_LED.xaml.cs">
+      <DependentUpon>Fault_LED.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomElements\SquareProgressBar.xaml.cs">
+      <DependentUpon>SquareProgressBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomElements\Status_LED.xaml.cs">
+      <DependentUpon>Status_LED.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Device.xaml.cs">
+      <DependentUpon>Device.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomElements\Subcategory_GroupBox.xaml.cs">
+      <DependentUpon>Subcategory_GroupBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomElements\WinDone.xaml.cs">
+      <DependentUpon>WinDone.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomElements\WinWarning.xaml.cs">
+      <DependentUpon>WinWarning.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomElements\WinExecuting.xaml.cs">
+      <DependentUpon>WinExecuting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomElements\WinDeviceDisconnected.xaml.cs">
+      <DependentUpon>WinDeviceDisconnected.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomElements\WinLoading.xaml.cs">
+      <DependentUpon>WinLoading.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeviceViews\AddressListWindow.xaml.cs">
+      <DependentUpon>AddressListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeviceViews\ChangeChipAddress.xaml.cs">
+      <DependentUpon>ChangeChipAddress.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeviceViews\FloatingWindow.xaml.cs">
+      <DependentUpon>FloatingWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeviceViews\SetFriendlyNameWindow.xaml.cs">
+      <DependentUpon>SetFriendlyNameWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeviceViews\ChooseChipWindow.xaml.cs">
+      <DependentUpon>ChooseChipWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeviceViews\Device_Parameters.xaml.cs">
+      <DependentUpon>Device_Parameters.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomElements\BitControlViews\PossibleValuesType.xaml.cs">
+      <DependentUpon>PossibleValuesType.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeviceViews\Help_GroupBox.xaml.cs" />
+    <Compile Include="Views\DeviceViews\Help_Window.xaml.cs">
+      <DependentUpon>Help_Window.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeviceViews\MatchAddressWindow.xaml.cs">
+      <DependentUpon>MatchAddressWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeviceViews\WinAbout.xaml.cs">
+      <DependentUpon>WinAbout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeviceViews\WinDetailedRegisterMap.xaml.cs">
+      <DependentUpon>WinDetailedRegisterMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeviceViews\WinKitVersion.xaml.cs">
+      <DependentUpon>WinKitVersion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeviceViews\WinLicenseDetails.xaml.cs">
+      <DependentUpon>WinLicenseDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeviceViews\WinLicenseRegister.xaml.cs">
+      <DependentUpon>WinLicenseRegister.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeviceViews\WinLicenseRemove.xaml.cs">
+      <DependentUpon>WinLicenseRemove.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeviceViews\WriteROMWarningWindow.xaml.cs">
+      <DependentUpon>WriteROMWarningWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeviceViews\WinProceedwithUIChanges.xaml.cs">
+      <DependentUpon>WinProceedwithUIChanges.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeviceViews\WinSaveProjectConfirm.xaml.cs">
+      <DependentUpon>WinSaveProjectConfirm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeviceViews\WinUpdate.xaml.cs">
+      <DependentUpon>WinUpdate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeviceViews\WinVersionWarning.xaml.cs">
+      <DependentUpon>WinVersionWarning.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomElements\WinError.xaml.cs">
+      <DependentUpon>WinError.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Images\AddNewDevice.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\Help.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\I2C-instance.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\info.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\navigation-left.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\navigation-right.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Images\OfflineMode.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Evaluation_View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RegisterTool.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="System_View.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Themes\Theme.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CustomElements\BitControlViews\MinMaxType.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomElements\CircularProgressBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomElements\CloseConfirmation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomElements\Help_Icon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomElements\Image_Viewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomElements\LicenseInactive.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CustomElements\LicenseOffline.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CustomElements\LicenseActive.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomElements\LicenseExpired.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomElements\LicenseExpiring.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomElements\MenuButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomElements\Module_Button.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomElements\Fault_LED.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CustomElements\SquareProgressBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomElements\Status_LED.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Device.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomElements\Subcategory_GroupBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomElements\WinDone.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomElements\WinWarning.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CustomElements\WinExecuting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomElements\WinDeviceDisconnected.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomElements\WinLoading.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DeviceViews\AddressListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DeviceViews\ChangeChipAddress.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DeviceViews\FloatingWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DeviceViews\SetFriendlyNameWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DeviceViews\ChooseChipWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DeviceViews\Device_Parameters.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomElements\BitControlViews\PossibleValuesType.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DeviceViews\Help_GroupBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DeviceViews\Help_Window.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DeviceViews\MatchAddressWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DeviceViews\WinAbout.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DeviceViews\WinDetailedRegisterMap.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DeviceViews\WinKitVersion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DeviceViews\WinLicenseDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DeviceViews\WinLicenseRegister.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DeviceViews\WinLicenseRemove.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DeviceViews\WriteROMWarningWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DeviceViews\WinProceedwithUIChanges.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DeviceViews\WinSaveProjectConfirm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DeviceViews\WinUpdate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DeviceViews\WinVersionWarning.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomElements\WinError.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Content Include="DataBase\MPQ3448\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MPQ5888D\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ5886D\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\CD3029\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\CD4246\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\CD5519\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\GCS-48V-V02\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\M5CKD02GBZ-Z\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\M5SPD0GX\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MP2718A\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MP2733B\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MP3713\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MP2769\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MP2764A\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MP2770A\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MP2765\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ70350FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ76250FS-A\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ76250FS-B\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ77416FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ77418FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ8878\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MP3728\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ70250FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ76252FS-A\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ76252FS-B\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ76201FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MP2745\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ2023A\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MP5456\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8833B\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8860\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8887\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP9107\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP9477B\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ4237GUTE\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ5885\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ70335FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8741B\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8747B\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ2275\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ3716\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ3712\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ70354FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ7213\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ7212\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ7213C\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ7212C\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MPQ76402FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ76200FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP9187\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM36100GPL\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ2294\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ2281\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MP2737\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MP28165\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5498\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5499\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8892\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM2896-20\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM3695L-20\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ5856H\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ77426FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MPM3696-35\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ70372FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MPM3898-50\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ4221\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP4236A\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ5843\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ70171FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ7225B\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ77415FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MPQ77428FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ77743FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP28167-B\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP3446U\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MP3712\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MP3714\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MP3710\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MP3718\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP3921\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5446A\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP4241\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5701\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ2282\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM35421-30\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ4241\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ5450\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5468\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5471\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5494\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8031\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8850\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8877\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8899\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPF52002-0033\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPF52100-MP3928\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP4235\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5432\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5434\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5436\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8021\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8857\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPF52002-0002\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM24622\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM26100\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM3690S-15\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM3696-100\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM3696-40\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM3696-40\DefaultDatasheet.Spec_backup_VBP4X-6151">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM3695GMJ-15\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM3897GPJ-20\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM3896-20\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM3896-40\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM3896-30\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ29125\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ3445\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ3446\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ3447\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP4203\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ4208\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ70245FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ7260\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MPQ4236\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ4243\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ70341FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ70332FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ71018FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MPQ4244\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ4249\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ71020FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ7222\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MPQ71411FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ75000FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ76233FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MPQ76300FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ76350FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ7794A\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MPQ7794-0001\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ7794\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ76400FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ78232FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ79720FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ79730FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ7795A\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ7795U\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ7934\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ7936\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MPQ78109FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ79500AFS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ79501FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ79530FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ79750FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ79550FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MPQ84400\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ78000FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ8835A\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ8872\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ8837\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MPQ8887A\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ8889\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ8895\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ8897GX\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ9232A\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ9232\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ4232A\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ4233A\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ70333FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MPQ70150FS-M\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ70336FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ72963FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ70430FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MPQ73350FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\CDM1680\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\mEZDPD1620AS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\mEZDPD1620A\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\mEZDPD3603AS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\mEZDPD3603A\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\mEZDPD4506AS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\mEZDPD4506A\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MP2764\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MP2421B\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP2422B\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MP2718\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MP2719\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MP2658\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MP2772\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP2798\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP28167-A\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ2967\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MP2980\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP2984\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP3439\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP3716\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP3924\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP3928\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP4201\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP4246\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP4248\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5055A\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5415\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5416\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5417C\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5431\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5440\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5446\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5451\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5470B\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5472\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5475\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5491\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5496\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5511A\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5515\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5518\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5519\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5520\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8128\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8403\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8796K\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8797B\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8833A\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8846\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8847\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8853\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8856GQE\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8859\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8864\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8865\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8867\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8868\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8869S\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8869W\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8878\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ2022A\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ2024A\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MP8891\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP9795B\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPF52000-A\DefaultDatasheet.Spec" />
+    <None Include="DataBase\MPF52002-0001\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPF52002-0003\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPF52002-0004\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPF52002-0017\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPF52002-001B\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPF52002-001C\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPF52002-0027\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPF61000\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM3593\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM3599\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM3695-100\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM3695-10\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM3695-20\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM3695-25\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM3700\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM38852\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM3895-25\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM4730\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ2977\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ2946\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ2283\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ2284\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ2285\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ2287\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ2288\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MPM54532GPB\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ4201\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ4231\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ4232\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP4245\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP4255\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5413\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5417\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5424\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5470\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MP5511\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MP5473\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5477\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5479\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5513\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5514\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5516N\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP5516\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8796B\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8826\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8843\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8845\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8854\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8861\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8869\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MP8870\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPF32010\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPF52000\DefaultDatasheet.Spec" />
+    <None Include="DataBase\MPM3596\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM3690-50D\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM3698\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM3701\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM54304\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM54313\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM54322\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM54522\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM54524\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPM82504\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ2022\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ2023\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MPQ2024\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ2026A\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MPQ2026\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ2286\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MPQ4210\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ4214\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ4230\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ4233\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ4234\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ4240\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ4242B\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ4242\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ4262A\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ4263\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ4272\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ4282\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ4284\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ5031\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ7241\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ7210\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ70331FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ7225\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ7227\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ7240\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ5858\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ70160FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ7920\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ70240FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ71000FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ5857\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ7795\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ7228\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ5864\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ77240FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MPQ5472\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ5476\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ5856\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ70340FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ70241FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ70242FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ70700FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ70150FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ70161FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ70165FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ70166FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ5862\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ70152FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ70153FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MPQ70170FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ70244FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MPQ70342FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ70701FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MPQ72957FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ74180FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ7902\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MPQ74202FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ74201FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ7794T\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ77220FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MPQ76230FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ7921\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ7922\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ7926\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ7928\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ7930\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ79700FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ79500FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ79505FS\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ7929\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ7931\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MPQ7932\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ7935\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MPQ7960\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ7961\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ7962\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ7963\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ7964\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ7965\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ7966\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ7967\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ7970\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ8645P\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="DataBase\MPQ8856\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ8873\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataBase\MPQ8874\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="DataBase\MPQ8847A\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ8857\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ8861\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ8875A\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ8880A\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ8880\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ8883\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ8886\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ8887\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MPQ8896\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="DataBase\MTS1312\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Document\Script Grammar Notes.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Document\VBP4.0 User Manual.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Dongle_Firmware\MPS_Automotive_Dongle_Rev118.mps">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Dongle_Firmware\MPS_PMBus_dongle_Rev28.mps">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="help.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="help_public.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\left_arrow_icon.png" />
+    <Resource Include="Images\Picture1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\right_arrow_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\close_white_48x48.png" />
+    <Resource Include="Images\crop_square_black_48x48.png" />
+    <Resource Include="Images\remove_black_48x48.png" />
+    <Resource Include="Images\remove_white_48x48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\crop_square_white_48x48.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\restore_down_64x64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\restore_down_white_64x64.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DataBase\ZCU-REF-GEN2\DefaultDatasheet.Spec">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dll\CalcBinding.dll" />
+    <Content Include="Dll\DynamicExpresso.Core.dll" />
+    <Content Include="Dll\LiveCharts.dll" />
+    <Content Include="Dll\LiveCharts.Wpf.dll" />
+    <Content Include="Dll\Microsoft.WindowsAPICodePack.dll" />
+    <Content Include="Dll\Microsoft.WindowsAPICodePack.Shell.dll" />
+    <Content Include="Dll\Microsoft.WindowsAPICodePack.ShellExtensions.dll" />
+    <Content Include="Dll\MPS.AutoUpdate.Interact.dll" />
+    <Content Include="Dll\MPS.VBP.AutoScan.dll" />
+    <Content Include="Dll\MPS.VBP.Communication.dll" />
+    <Content Include="Dll\MPS.VBP.Monitor.dll" />
+    <Content Include="Dll\MPS.VBP.MTPConfig.dll" />
+    <Content Include="Dll\MPS.VBP.Parts.dll" />
+    <Content Include="Dll\MPS.VBP.Script.dll" />
+    <Content Include="Dll\MPS.VBP.StateMachineDiagram.dll" />
+    <Content Include="Dll\Newtonsoft.Json.dll" />
+    <Content Include="Dll\SQLite-net.dll" />
+    <Content Include="Dll\SQLiteNetExtensions.dll" />
+    <Content Include="Dll\SQLitePCLRaw.batteries_green.dll" />
+    <Content Include="Dll\SQLitePCLRaw.batteries_v2.dll" />
+    <Content Include="Dll\SQLitePCLRaw.core.dll" />
+    <Content Include="Dll\SQLitePCLRaw.provider.e_sqlite3.dll" />
+    <Resource Include="Images\add-virtually-white%403x.png" />
+    <Resource Include="Images\001-add-documents%403x.png" />
+    <Resource Include="Images\002-open-archive%403x.png" />
+    <Resource Include="Images\128x128_m-blue.ico" />
+    <Content Include="Dll\System.Data.SQLite.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\AddNewDevice-instance.svg" />
+    <Content Include="Images\AddNewDevice.svg" />
+    <Resource Include="Images\device%403x.png" />
+    <Resource Include="Images\device-copy%403x.png" />
+    <Resource Include="Images\export%403x.png" />
+    <Resource Include="Images\group-5%403x.png" />
+    <Resource Include="Images\checked_checkbox_16px.png" />
+    <Resource Include="Images\evaluation-review.png" />
+    <Resource Include="Images\evaluation-order.png" />
+    <Resource Include="Images\done.png" />
+    <Resource Include="Images\Battery Charging Profile.jpg" />
+    <Content Include="Images\Help.svg" />
+    <Content Include="Images\I2C-instance.svg" />
+    <Resource Include="Images\info-modal-inactive%403x.png" />
+    <Resource Include="Images\Loading.png" />
+    <Resource Include="Images\info.png" />
+    <Resource Include="Images\info%402x.png" />
+    <Resource Include="Images\JetiaProfile.PNG" />
+    <Resource Include="Images\info-modal-inactive%402x.png" />
+    <Content Include="Images\ManuallyAdd.svg" />
+    <Resource Include="Images\NTCCalculate.PNG" />
+    <Resource Include="Images\NTCCalculate%281%29.PNG" />
+    <Resource Include="Images\max%403x.png" />
+    <Content Include="Images\offlineMode-instance.svg" />
+    <Content Include="Images\OfflineMode.svg" />
+    <Resource Include="Images\online-copy%403x.png" />
+    <Resource Include="Images\online-copy-2%403x.png" />
+    <Resource Include="Images\system%403x.png" />
+    <Resource Include="Images\system-copy%403x.png" />
+    <Resource Include="Images\tools-copy%403x.png" />
+    <Resource Include="Images\tools-copy-2%403x.png" />
+    <Resource Include="Images\auto-scan%403x.png" />
+    <Resource Include="Images\add-manually%403x.png" />
+    <Resource Include="Images\add-virtually%403x.png" />
+    <Resource Include="Images\unchecked_checkbox_16px.png" />
+    <Resource Include="ReleaseNote.txt" />
+    <Resource Include="Images\scanaddicon.png" />
+    <Resource Include="Images\ucsm-copy%403x.png" />
+    <Resource Include="Images\red_alert.png" />
+    <Content Include="x64\e_sqlite3.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\e_sqlite3.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Images\left_arrow_icon.jpg" />
+    <Resource Include="Images\minimize%403x.png" />
+    <Content Include="Images\navigation-left.svg" />
+    <Resource Include="Images\navigation-right%403x.png" />
+    <Content Include="Images\navigation-right.svg" />
+    <Resource Include="Images\Placeholder.png" />
+    <Resource Include="Images\Temporal_Icon_2.PNG" />
+    <Content Include="Dll\I2Comm.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dll\MPS.Controls.dll" />
+    <Content Include="Dll\SiUSBXp.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Dll\System.Windows.Interactivity.dll" />
+    <Resource Include="Images\close%403x.png" />
+    <Content Include="Images\close.svg" />
+    <Resource Include="Images\info%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf">
+      <Version>1.1.39</Version>
+    </PackageReference>
+    <PackageReference Include="MPS.PowerSuite.Shared.Licensing.Client">
+      <Version>4.0.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="MPS.VBP.Common">
+      <Version>1.0.0.159</Version>
+    </PackageReference>
+    <PackageReference Include="MPS.VBP.Instrument">
+      <Version>1.1.1.39</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>13.0.3</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="VirtualBenchPro_v4.Views.CustomElements.Subcategory_GroupBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VirtualBenchPro_v4.Views.CustomElements"
+             mc:Ignorable="d" Width="250">
+    <Grid Margin="0,10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="{Binding Top_Height}"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <DockPanel>
+                <Label Content="{Binding SubCategoryName }" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalContentAlignment="Center" FontFamily="Arial" Foreground="#FF1378FF" Padding="5,0" Margin="5,0,0,0"/>
+                <Grid x:Name="Help_Icon_Control" DockPanel.Dock="Left" HorizontalAlignment="Left"  Width="12" Height="12" Cursor="Hand" ToolTip="Click here for more Information" />
+            </DockPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <WrapPanel x:Name="SubCategory_Content" Orientation="Vertical" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"  />
+        </Grid>
+    </Grid>
+</UserControl>

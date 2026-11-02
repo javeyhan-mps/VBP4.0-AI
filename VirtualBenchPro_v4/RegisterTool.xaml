@@ -1,0 +1,299 @@
+﻿<Page  x:Class="VirtualBenchPro_v4.Views.RegisterTool"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:VirtualBenchPro_v4.Views"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:virtualbenchpro_v4="clr-namespace:VirtualBenchPro_v4"
+      xmlns:CustomElements="clr-namespace:VirtualBenchPro_v4.Views.CustomElements"
+      mc:Ignorable="d" 
+      d:DesignHeight="698" d:DesignWidth="933"
+      Title="System" Background="White">
+
+    <Grid Background="#FFF8F9FB">
+        <Grid Grid.Row="2" Height="450" Width="650" Visibility="Collapsed">
+            <!--<Button Style="{StaticResource ButtonRounded}" Content="MPS Design Upload Page" Width="222" Height="58" Foreground="White" Background="#FF1C4EFF" FontSize="16" Click="Button_Click"/>-->
+            <Border Margin="5" CornerRadius="5" Background="White"  >
+                <Border.Effect>
+                    <DropShadowEffect Color="#FFE9EDF2" Direction="0" BlurRadius="10" ShadowDepth="0" />
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="32"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" >
+                        <Border BorderThickness="0,0,0,1" BorderBrush="#FFE9EDF2" />
+                        <Label VerticalContentAlignment="Center" FontSize="14" Foreground="#FF0A3C7F" Panel.ZIndex="2" Padding="0,5,5,5" Margin="16,0,33,0" FontWeight="Bold" FontFamily="Arial" Content="Register Tool"/>
+                    </Grid>
+
+                    <Grid Grid.Row="1" Margin="0" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="120"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
+                            <Label Content="Slave(0x)" FontFamily="Arial" Foreground="Gray" VerticalAlignment="Center" Margin="0 0 5 0"/>
+                            <TextBox Height="20" Width="120" Text="{Binding SlaveAddress}" BorderBrush="LightGray" Foreground="#FF0A3C7F" VerticalContentAlignment="Center" FontFamily="Arial" Padding="5 0 0 0">
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="4" />
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+                            <Label Content="Register(0x)" FontFamily="Arial" Foreground="Gray" Margin="13 0 5 0" VerticalAlignment="Center"/>
+                            <TextBox Height="20" Width="120" Text="{Binding RegisterAddress}" BorderBrush="LightGray" Foreground="#FF0A3C7F" VerticalContentAlignment="Center" FontFamily="Arial" Padding="5 0 0 0">
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="4" />
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+                        </StackPanel>
+                        <TextBox Margin="10 0 10 20" Text="{Binding Data}" Grid.Row="1" Grid.Column="0" BorderBrush="LightGray" Foreground="#FF0A3C7F" FontFamily="Arial" Padding="5 5 0 0">
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="4" />
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" Margin="0 0 10 20">
+                            <Border BorderBrush ="LightGray" BorderThickness="0 1 0 0" Margin="10 0 10 10" />
+                            <Button Content="Write Byte" Command="{Binding WriteCommand}" BorderBrush="LightGray" Style="{StaticResource ButtonRoundedWhite }" Foreground="#FF1C4EFF" FontFamily="Arial" Margin="10 5" Height="25"/>
+                            <Button Content="Read Byte" Command="{Binding ReadCommand}" BorderBrush="LightGray" Style="{StaticResource ButtonRoundedWhite }" Foreground="#FF1C4EFF" FontFamily="Arial" Margin="10 5" Height="25"/>
+
+                            <Border BorderBrush ="LightGray" BorderThickness="0 1 0 0" Margin="10" />
+                            <Button Content="Write Word" Command="{Binding WriteWordCommand}" BorderBrush="LightGray" Style="{StaticResource ButtonRoundedWhite }" Foreground="#FF1C4EFF" FontFamily="Arial" Margin="10 5" Height="25"/>
+                            <Button Content="Read Word" Command="{Binding ReadWordCommand}" BorderBrush="LightGray" Style="{StaticResource ButtonRoundedWhite }" Foreground="#FF1C4EFF" FontFamily="Arial" Margin="10 5" Height="25"/>
+
+                            <Border BorderBrush ="LightGray" BorderThickness="0 1 0 0" Margin="10" />
+                            <Button Content="Scan" Command="{Binding ScanCommand}" BorderBrush="LightGray" Style="{StaticResource ButtonRoundedWhite }" Foreground="#FF1C4EFF" FontFamily="Arial" Margin="10 5" Height="25"/>
+                            <Button Content="Send Byte" Command="{Binding SendCommand}" BorderBrush="LightGray" Style="{StaticResource ButtonRoundedWhite }" Foreground="#FF1C4EFF" FontFamily="Arial" Margin="10 5" Height="25"/>
+                            <CheckBox Content="Enable PEC" IsChecked="{Binding EnablePEC, Mode=OneWayToSource}" Foreground="Gray" Margin="10 6 10 0" />
+                        </StackPanel>
+                    </Grid>
+
+                </Grid>
+
+            </Border>
+        </Grid>
+
+        <Grid Grid.Row="2" Height="600" Width="700">
+            <!--<Button Style="{StaticResource ButtonRounded}" Content="MPS Design Upload Page" Width="222" Height="58" Foreground="White" Background="#FF1C4EFF" FontSize="16" Click="Button_Click"/>-->
+            <Border Margin="5" CornerRadius="5" Background="White"  >
+                <Border.Effect>
+                    <DropShadowEffect Color="#FFE9EDF2" Direction="0" BlurRadius="10" ShadowDepth="0" />
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="34"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" >
+                        <Border BorderThickness="0,0,0,1" BorderBrush="#FFE9EDF2" />
+                        <Label VerticalContentAlignment="Center" FontSize="14" Foreground="#FF0A3C7F" Panel.ZIndex="2" Padding="0,5,5,5" Margin="16,0,33,0" FontWeight="Bold" FontFamily="Arial" Content="Register Tool | Mainly for EVKT-USBI2C-02"/>
+                    </Grid>
+
+                    <Grid Grid.Row="1" Margin="0" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="150"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" Margin="10 0 0 0">
+                            <Label Content="Slave Address(0x)" FontFamily="Arial" Foreground="Gray" VerticalAlignment="Center" Margin="0 0 5 0" Visibility="{Binding SlaveVisibility}"/>
+                            <TextBox Height="20" Width="120" Text="{Binding SlaveAddress}" BorderBrush="LightGray" Foreground="#FF0A3C7F" VerticalContentAlignment="Center" FontFamily="Arial" Padding="5 0 0 0" Margin="0 0 13 0" Visibility="{Binding SlaveVisibility}">
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="4" />
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+                            <Label Content="Register Address(0x)" FontFamily="Arial" Foreground="Gray" Margin="0 0 5 0" VerticalAlignment="Center"/>
+                            <TextBox Height="20" Width="120" Text="{Binding RegisterAddress}" BorderBrush="LightGray" Foreground="#FF0A3C7F" VerticalContentAlignment="Center" FontFamily="Arial" Padding="5 0 0 0">
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="4" />
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+                        </StackPanel>
+                        <TextBox Margin="10 0 10 20" Text="{Binding Data}" Grid.Row="1" Grid.Column="0" BorderBrush="LightGray" Foreground="#FF0A3C7F" FontFamily="Arial" Padding="5 5 0 0">
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="4" />
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" Margin="0 00 10 10">
+                            <Border BorderBrush ="LightGray" BorderThickness="0 1 0 0" Margin="5" />
+                            <RadioButton x:Name="ByteRadioButton" Content="Byte" IsChecked="True" Foreground="Gray" Margin="20 5">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding SelectModeCommand}" CommandParameter="{Binding ElementName=ByteRadioButton,Path=Content}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </RadioButton>
+                            <RadioButton x:Name="WordRadioButton" Content="Word" Foreground="Gray" Margin="20 5" >
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding SelectModeCommand}" CommandParameter="{Binding ElementName=WordRadioButton,Path=Content}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </RadioButton>
+                            <RadioButton x:Name="OtherRadioButton" Content="Other" Foreground="Gray" Margin="20 5" >
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction Command="{Binding SelectModeCommand}" CommandParameter="{Binding ElementName=OtherRadioButton,Path=Content}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </RadioButton>
+
+                            <Border BorderBrush ="LightGray" BorderThickness="0 1 0 0" Margin="5" Visibility="{Binding IsSpecialProtocol,Converter={StaticResource RegisterToolConverter},ConverterParameter=Normal}"/>
+                            <Label Content="Not for EVKT-USBI2C-02" Foreground="Red" FontSize="11"
+                                   Visibility="{Binding IsSpecialProtocol,Converter={StaticResource RegisterToolConverter},ConverterParameter=Normal}"/>
+                            <StackPanel Orientation="Horizontal" Visibility="{Binding IsSpecialProtocol,Converter={StaticResource RegisterToolConverter},ConverterParameter=Normal}">
+                                <ComboBox x:Name="ChipCmb" Height="25" Width="110" Margin="5 5 3 5" ToolTip="Protocol options" Foreground="Gray" SelectedIndex="{Binding SelectIndexProcotol}" FontFamily="Arial">
+                                    <ComboBoxItem>SPI-MPQ7210</ComboBoxItem>
+                                    <ComboBoxItem>SPI-MPQ7240</ComboBoxItem>
+                                    <ComboBoxItem>Differential-MPQ7225</ComboBoxItem>
+                                    <ComboBoxItem>SPI-MPQ70331FS</ComboBoxItem>
+                                    <ComboBoxItem>UART-MPQ7228</ComboBoxItem>
+                                    <ComboBoxItem>BMS_IIC</ComboBoxItem>
+                                    <ComboBoxItem>BMS_SPI</ComboBoxItem>
+                                    <ComboBoxItem>SPI-MPQ73350FS</ComboBoxItem>
+                                    <ComboBoxItem>UART-MPQ76400FS</ComboBoxItem>
+                                    <ComboBoxItem>UART-MPQ7222</ComboBoxItem>
+                                    <ComboBoxItem ToolTip="Support Part: MPQ78000FS...">ABMS_SPI</ComboBoxItem>
+                                    <ComboBoxItem ToolTip="Support Part: MP5494...">AUTOMOTIVE_SPI</ComboBoxItem>
+                                    <ComboBoxItem>SPI-MPQ77426FS</ComboBoxItem>
+                                    <ComboBoxItem>SPI-MP5499</ComboBoxItem>
+                                    <ComboBoxItem>SPI-MPQ77743FS</ComboBoxItem>
+                                </ComboBox>
+                                <Image ToolTipService.ShowDuration="60000" Grid.Column="2"  Margin="5 0 0 0" Width="12" Height="12"  Source="/VirtualBenchPro_v4;component/Images/info@3x.png">
+                                    <Image.ToolTip>
+                                        <ToolTip BorderBrush="Transparent" Background="Transparent">
+                                            <Border CornerRadius="5" Background="#0c98ff">
+                                                <StackPanel Orientation="Vertical" Margin="5">
+                                                    <TextBlock TextWrapping="Wrap" FontFamily="Arial" Foreground="White" Text="Please refer to the datasheet for selecting protocol." MaxWidth="300" Background="Transparent" />
+                                                    <Image Source="{Binding HelpInfo, Converter={StaticResource stringInfoConverter}, ConverterParameter=Image}" Margin="5 0"/>
+                                                </StackPanel>
+                                            </Border>
+                                        </ToolTip>
+                                    </Image.ToolTip>
+                                </Image>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Visibility="{Binding IsSpecialProtocol,Converter={StaticResource RegisterToolConverter},ConverterParameter=Normal}">
+                                <!--<ComboBox Height="25" Margin="5" Width="110" Foreground="Gray" SelectedIndex="{Binding SelectIndexSPIClock}" FontFamily="Arial"
+                                          Visibility="{Binding ClockVisibility}">
+                                    <ComboBoxItem>50kHz</ComboBoxItem>
+                                    <ComboBoxItem>100kHz</ComboBoxItem>
+                                    <ComboBoxItem>200kHz</ComboBoxItem>
+                                    <ComboBoxItem>400kHz</ComboBoxItem>
+                                    <ComboBoxItem>500kHz</ComboBoxItem>
+                                    <ComboBoxItem>1MHz</ComboBoxItem>
+                                    <ComboBoxItem>2MHz</ComboBoxItem>
+                                    <ComboBoxItem>4MHz</ComboBoxItem>
+                                </ComboBox>-->
+                                <TextBox x:Name="FreqTxt" Width="50" Height="25"
+                                         HorizontalContentAlignment="Left" Margin="5 5 3 5"
+                                         VerticalContentAlignment="Center" BorderBrush="LightGray" 
+                                         Foreground="#FF0A3C7F" FontFamily="Arial" Padding="2"
+                                         Text="{Binding Freqdata}"
+                                         TextChanged="FreqTxt_TextChanged" LostFocus="FreqTxt_LostFocus">
+                                    <TextBox.Resources>
+                                        <Style TargetType="{x:Type Border}">
+                                            <Setter Property="CornerRadius" Value="4" />
+                                        </Style>
+                                    </TextBox.Resources>
+                                </TextBox>
+                                <ComboBox x:Name="UnitCmb" Width="55" Height="25" FontSize="12" Margin="2" 
+                                          SelectedIndex="{Binding SelectIndexSPIClock}"
+                                          SelectionChanged="ComboBox_SelectionChanged">
+                                    <ComboBoxItem>KHz</ComboBoxItem>
+                                    <ComboBoxItem>MHz</ComboBoxItem>
+                                </ComboBox>
+                                <Image ToolTipService.ShowDuration="60000" Grid.Column="2"  Margin="5 0 0 0" Width="12" Height="12"  Source="/VirtualBenchPro_v4;component/Images/info@3x.png"
+                                       Visibility="{Binding ClockVisibility}">
+                                    <Image.ToolTip>
+                                        <ToolTip BorderBrush="Transparent" Background="Transparent">
+                                            <Border CornerRadius="5" Background="#0c98ff">
+                                                <StackPanel Orientation="Vertical" Margin="5">
+                                                    <TextBlock TextWrapping="Wrap" FontFamily="Arial" Foreground="White" Text="Set the dongle clock frequency for the SPI/UART protocol." MaxWidth="300" Background="Transparent" />
+                                                    <Image Source="{Binding HelpInfo, Converter={StaticResource stringInfoConverter}, ConverterParameter=Image}" Margin="5 0"/>
+                                                </StackPanel>
+                                            </Border>
+                                        </ToolTip>
+                                    </Image.ToolTip>
+                                </Image>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Visibility="{Binding IsSpecialProtocol,Converter={StaticResource RegisterToolConverter},ConverterParameter=Normal}">
+                                <Button Content="Set SPI" Margin="3" Command="{Binding SetFrequencyCommand}" CommandParameter="SPI" Foreground="#FF1C4EFF" Width="60" BorderBrush="LightGray" Style="{StaticResource ButtonRoundedWhite }" FontFamily="Arial" Height="25"
+                                        Visibility="{Binding SetSPIVisibility}"/>
+                                <Button Content="Set UART" Margin="3" Command="{Binding SetFrequencyCommand}" CommandParameter="UART" Foreground="#FF1C4EFF" Width="60"  BorderBrush="LightGray" Style="{StaticResource ButtonRoundedWhite }" FontFamily="Arial" Height="25"
+                                        Visibility="{Binding SetUARTVisibility}"/>
+                            </StackPanel>
+
+                            <Border BorderBrush ="LightGray" BorderThickness="0 1 0 0" Margin="5" Visibility="{Binding PreEnablePECLineVisibility}"/>
+                            <CheckBox Content="Enable PEC" IsChecked="{Binding EnablePEC, Mode=TwoWay}" Foreground="Gray" Margin="10 8"
+                                      Visibility="{Binding EnablePECVisibility}"/>
+                            <CheckBox Content="2 Byte Address" IsChecked="{Binding is2ByteAddress, Mode=TwoWay}" ToolTip="Support Part: MPQ8897GX" Foreground="Gray" Margin="10 8"
+                                      Visibility="{Binding TwoByteAddressVisibility}"/>
+
+                            <Border BorderBrush ="LightGray" BorderThickness="0 1 0 0" Margin="5"/>
+                            <Button Content="Write" Command="{Binding WriteCommand}" BorderBrush="LightGray" Style="{StaticResource ButtonRoundedWhite }" Foreground="#FF1C4EFF" FontFamily="Arial" Margin="10 5" Height="25"/>
+                            <Button Content="Read" Command="{Binding ReadCommand}" BorderBrush="LightGray" Style="{StaticResource ButtonRoundedWhite }" Foreground="#FF1C4EFF" FontFamily="Arial" Margin="10 5" Height="25"/>
+
+                            <Border BorderBrush ="LightGray" BorderThickness="0 1 0 0" Margin="5" Visibility="{Binding IsSpecialProtocol,Converter={StaticResource RegisterToolConverter},ConverterParameter=Reversal}"/>
+                            <!--<Button Content="Scan" Command="{Binding ScanCommand}" IsEnabled="{Binding strOperation,Converter={StaticResource RegisterToolBtnEnableConverter}}" BorderBrush="LightGray" Style="{StaticResource ButtonRoundedWhite }" Foreground="{Binding strOperation,Converter={StaticResource RegisterToolForegroundConverter}}" FontFamily="Arial" Margin="10 5" Height="25"/>
+                            <Button Content="Send Byte" Command="{Binding SendCommand}" IsEnabled="{Binding strOperation,Converter={StaticResource RegisterToolBtnEnableConverter}}" BorderBrush="LightGray" Style="{StaticResource ButtonRoundedWhite }" Foreground="{Binding strOperation,Converter={StaticResource RegisterToolForegroundConverter}}" FontFamily="Arial" Margin="10 5" Height="25"/>-->
+                            <Button Content="Scan" Command="{Binding ScanCommand}" BorderBrush="LightGray" Style="{StaticResource ButtonRoundedWhite }" Foreground="{Binding strOperation,Converter={StaticResource RegisterToolForegroundConverter}}" FontFamily="Arial" Margin="10 5" Height="25"
+                                    Visibility="{Binding IsSpecialProtocol,Converter={StaticResource RegisterToolConverter},ConverterParameter=Reversal}"/>
+                            <Button Content="Send Byte" Command="{Binding SendCommand}" BorderBrush="LightGray" Style="{StaticResource ButtonRoundedWhite }" Foreground="{Binding strOperation,Converter={StaticResource RegisterToolForegroundConverter}}" FontFamily="Arial" Margin="10 5" Height="25"
+                                    Visibility="{Binding IsSpecialProtocol,Converter={StaticResource RegisterToolConverter},ConverterParameter=Reversal}"/>
+
+                            <Border BorderBrush ="LightGray" BorderThickness="0 1 0 0" Margin="5" Visibility="{Binding IsSpecialProtocol,Converter={StaticResource RegisterToolConverter},ConverterParameter=Reversal}"/>
+                            <Label Content="IIC dongle frequency:" Foreground="Gray" Visibility="{Binding IsSpecialProtocol,Converter={StaticResource RegisterToolConverter},ConverterParameter=Reversal}"/>
+                            <StackPanel Orientation="Horizontal" Visibility="{Binding IsSpecialProtocol,Converter={StaticResource RegisterToolConverter},ConverterParameter=Reversal}">
+                                <ComboBox Height="25" Margin="10 5" Width="80" ToolTip="Clock Frequency" Foreground="Gray" SelectedIndex="{Binding SelectIndexIICClock}" FontFamily="Arial">
+                                    <ComboBoxItem>100kHz</ComboBoxItem>
+                                    <ComboBoxItem>200kHz</ComboBoxItem>
+                                    <ComboBoxItem>400kHz</ComboBoxItem>
+                                    <ComboBoxItem>500kHz</ComboBoxItem>
+                                    <ComboBoxItem>1MHz</ComboBoxItem>
+                                </ComboBox>
+                                <Button Content="Set" Command="{Binding SetFrequencyCommand}" CommandParameter="IIC" Foreground="#FF1C4EFF" Width="30"  BorderBrush="LightGray" Style="{StaticResource ButtonRoundedWhite }" FontFamily="Arial" Height="25"/>
+                            </StackPanel>
+                            <!--<ComboBox Height="25" Margin="10 5" ToolTip="SPI Mode" Foreground="Gray" SelectedIndex="{Binding SelectIndexMode}" FontFamily="Arial">
+                                <ComboBoxItem>Mode0-0x40</ComboBoxItem>
+                                <ComboBoxItem>Mode1-0x60</ComboBoxItem>
+                                <ComboBoxItem>Mode2-0x50</ComboBoxItem>
+                                <ComboBoxItem>Mode3-0x70</ComboBoxItem>
+                            </ComboBox>-->
+
+                            <Border BorderBrush ="LightGray" BorderThickness="0 1 0 0" Margin="5" Visibility="{Binding IsSpecialProtocol,Converter={StaticResource RegisterToolConverter},ConverterParameter=Reversal}"/>
+
+                            <TextBlock Text="For EVKT-USBI2C-02 Only:" Foreground="Gray" FontFamily="Arial" FontSize="11" Margin="5 5 0 5" Visibility="{Binding IsSpecialProtocol,Converter={StaticResource RegisterToolConverter},ConverterParameter=Reversal}"/>
+                            
+                            <Button Content="I2C Script Tool" Command="{Binding I2CScriptCommand}" BorderBrush="LightGray" Style="{StaticResource ButtonRoundedWhite }" Foreground="#FF1C4EFF" FontFamily="Arial" Margin="10 5" Height="25"
+                                    Visibility="{Binding IsSpecialProtocol,Converter={StaticResource RegisterToolConverter},ConverterParameter=Reversal}"/>
+                            
+                        </StackPanel>
+                    </Grid>
+
+                </Grid>
+
+            </Border>
+        </Grid>
+    </Grid>
+</Page>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This file is compatible with Silverlight-->
+<Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Name="svg20" Width="256" Height="256">
+  <Canvas.RenderTransform>
+    <TranslateTransform X="0" Y="0"/>
+  </Canvas.RenderTransform>
+  <Canvas.Resources/>
+  <!--Unknown tag: metadata-->
+  <!--Unknown tag: sodipodi:namedview-->
+  <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path2" Fill="#FFEBE7F2" Data="m85.25 224.25a2.5 2.5 0 0 1 -2.5-2.5v-115.5a2.5 2.5 0 0 1 5 0v115.5a2.5 2.5 0 0 1 -2.5 2.5z"/>
+  <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path4" Fill="#FFEBE7F2" Data="m170.75 163.847a2.5 2.5 0 0 1 -2.5-2.5v-55.1a2.5 2.5 0 0 1 5 0v55.1a2.5 2.5 0 0 1 -2.5 2.5z"/>
+  <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path6" Fill="#FFEBE7F2" Data="m128 108.75a2.5 2.5 0 0 1 -2.5-2.5v-62.583a2.5 2.5 0 0 1 5 0v62.583a2.5 2.5 0 0 1 -2.5 2.5z"/>
+  <Canvas Name="g18" Opacity="1">
+    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path10" Fill="#FF1378FF" Data="m163.117 219.25h-86.617v-110.5h103v33.45a2.5 2.5 0 1 0 5 0v-35.95a2.5 2.5 0 0 0 -2.5-2.5h-16.2v-60.083a2.5 2.5 0 0 0 -2.5-2.5h-70.595a2.5 2.5 0 0 0 -2.5 2.5v60.083h-16.205a2.5 2.5 0 0 0 -2.5 2.5v11.583h-4.333a13.667 13.667 0 0 0 0 27.334h4.333v76.583a2.5 2.5 0 0 0 2.5 2.5h89.117a2.5 2.5 0 0 0 0-5zm-67.912-173.083h65.59v57.583h-65.59zm-28.038 94a8.667 8.667 0 0 1 0-17.334h4.333v17.334z"/>
+    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path12" Fill="#FF1378FF" Data="m199.371 145.9a40.615 40.615 0 1 0 40.615 40.615 40.661 40.661 0 0 0 -40.615-40.615zm0 76.23a35.615 35.615 0 1 1 35.615-35.615 35.655 35.655 0 0 1 -35.615 35.611z"/>
+    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path14" Fill="#FF1378FF" Data="m118.125 54.25h-14.5a2.5 2.5 0 0 0 -2.5 2.5v9.25a2.5 2.5 0 0 0 2.5 2.5h14.5a2.5 2.5 0 0 0 2.5-2.5v-9.25a2.5 2.5 0 0 0 -2.5-2.5zm-2.5 9.25h-9.5v-4.25h9.5z"/>
+    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path16" Fill="#FF1378FF" Data="m152.375 54.25h-14.5a2.5 2.5 0 0 0 -2.5 2.5v9.25a2.5 2.5 0 0 0 2.5 2.5h14.5a2.5 2.5 0 0 0 2.5-2.5v-9.25a2.5 2.5 0 0 0 -2.5-2.5zm-2.5 9.25h-9.5v-4.25h9.5z"/>
+  </Canvas>
+  <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path20" Fill="#FFEF4055" StrokeThickness="0.07976515" Data="m 211.6505 205.17357 -13.05728 -12.38211 -13.05727 12.38211 c -1.81007 1.71613 -4.7445 1.71613 -6.55457 0 -1.80973 -1.71642 -1.80973 -4.49905 0 -6.21548 l 13.05761 -12.38182 -13.05761 -12.38182 c -1.80973 -1.71642 -1.80973 -4.49905 0 -6.21548 1.81007 -1.71613 4.7445 -1.71613 6.55457 0 l 13.05727 12.38212 13.05728 -12.38212 c 1.81007 -1.71613 4.7445 -1.71613 6.55456 0 1.80974 1.71643 1.80974 4.49906 0 6.21548 l -13.0576 12.38182 13.0576 12.38182 c 1.80974 1.71643 1.80974 4.49906 0 6.21548 -1.81006 1.71613 -4.74449 1.71613 -6.55456 0 z m 0 0"/>
+</Canvas>

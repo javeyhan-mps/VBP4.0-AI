@@ -1,0 +1,122 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:VirtualBenchPro_v4.Views"
+      xmlns:virtualbenchpro_v4="clr-namespace:VirtualBenchPro_v4"
+      xmlns:CustomElements="clr-namespace:VirtualBenchPro_v4.Views.CustomElements" x:Class="VirtualBenchPro_v4.Views.Evaluation_View"
+      mc:Ignorable="d" 
+      
+      Title="System" Background="White">
+    <!--d:DesignHeight="698" d:DesignWidth="933"-->
+    <Grid Background="#FFF8F9FB">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="136"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Height="127" Grid.ColumnSpan="2" VerticalAlignment="Top">
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5" CenterX="0.5"/>
+                                <SkewTransform CenterY="0.5" CenterX="0.5"/>
+                                <RotateTransform Angle="90" CenterY="0.5" CenterX="0.5"/>
+                            </TransformGroup>
+                        </LinearGradientBrush.RelativeTransform>
+                        <GradientStop Color="#FF03C2FF"/>
+                        <GradientStop Color="#FF1C4EFF" Offset="1"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+                <Label Content="GET YOUR DESIGN EVALUATION" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Arial" FontWeight="Bold" FontSize="18" Height="20" Padding="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+
+            </Grid>
+
+            <Border Grid.Column="0" CornerRadius="4" BorderThickness="2" Width="388" Height="320" Background="White" VerticalAlignment="Top" Margin="0,96,39,0" BorderBrush="#FF03C2FF" HorizontalAlignment="Right">
+                <Border.Effect>
+                    <DropShadowEffect Color="#FFE9EDF2" Direction="0" BlurRadius="10" ShadowDepth="0" />
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="55"/>
+                        <RowDefinition Height="126"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Background="#FF03C2FF">
+                        <Label Content="TALK TO AN EXPERT" Foreground="White" FontFamily="Arial" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="5,0" />
+                    </Grid>
+                    <Grid Grid.Row="1" Background="#FFEEF5FF">
+                        <Image HorizontalAlignment="Center" Height="69" Margin="0" VerticalAlignment="Center" Source="Images/evaluation-review.png"/>
+
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <TextBlock Text="Discuss your project with one of our product experts or submit your design for review at MPS-NOW." Margin="16,28,16,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FF496180" FontFamily="Arial" FontSize="14"/>
+                        <Button Style="{StaticResource ButtonRoundedWhite}" Content="Review Design" HorizontalAlignment="Left" Margin="16,0,0,30" VerticalAlignment="Bottom" Width="108" Height="24" FontFamily="Arial" FontSize="14" Foreground="#FF1378FF" BorderBrush="#FFE1E7EF" Click="btnRD_Click"/>
+
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="1" CornerRadius="4" BorderThickness="2" Width="388" Height="320" Background="White" VerticalAlignment="Top" Margin="39,96,0,0" BorderBrush="#FF03C2FF" HorizontalAlignment="Left" >
+                <Border.Effect>
+                    <DropShadowEffect Color="#FFE9EDF2" Direction="0" BlurRadius="10" ShadowDepth="0" />
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="55"/>
+                        <RowDefinition Height="126"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Background="#FF03C2FF">
+                        <Label Content="ORDER EVAL BOARD &amp; SAMPLES" Foreground="White" FontFamily="Arial" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="5,0" />
+                    </Grid>
+                    <Grid Grid.Row="1" Background="#FFEEF5FF">
+                        <Image Source="Images/evaluation-order.png"/>
+
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <TextBlock Text="Test out your design: order samples or an eval board with your custom code." Margin="16,28,16,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FF496180" FontFamily="Arial" FontSize="14"/>
+                        <Button Style="{StaticResource ButtonRoundedWhite}" Content="Order Samples" HorizontalAlignment="Left" Margin="16,0,0,30" VerticalAlignment="Bottom" Width="108" Height="24" FontFamily="Arial" FontSize="14" Foreground="#FF1378FF" BorderBrush="#FFE1E7EF" Click="btnOS_Click"/>
+
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+            <Border BorderThickness="1" Grid.ColumnSpan="2" BorderBrush="#FFE9EDF2" Height="1" VerticalAlignment="Top" Margin="20,0" />
+            <StackPanel Orientation="Horizontal">
+                <Grid Grid.Column="0" Width="423" DockPanel.Dock="Left">
+                    <Label Content="Need Assistance?" HorizontalAlignment="Left" Margin="38,24,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="#FF9EACBF" Padding="0,5,5,5"/>
+                    <TextBlock Margin="38,57,20,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FF9EACBF" Background="{x:Null}" FontFamily="Arial">
+                        <Run Text="For any inquiry you can get in touch with our " />
+                        <Run Text="Order Support Team." FontWeight="Bold" />
+                        <Run Text="We will respond to your inquiry in one business day." />
+                    </TextBlock>
+                </Grid>
+                <Grid Grid.Column="0" Width="436" DockPanel.Dock="Left">
+                    <Label Content="Online Order Support" HorizontalAlignment="Left" Margin="18,24,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="16" FontWeight="Bold" Foreground="#FF9EACBF" Padding="0,5,5,5"/>
+                    <TextBlock Margin="18,57,40,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FF9EACBF" Background="{x:Null}" FontFamily="Arial">
+                        <Run Text="Web:" />
+                        <Run Text="Online Form" TextDecorations="Underline" Cursor="Hand" MouseLeftButtonUp="Run_MouseLeftButtonUp_1"/>
+                    </TextBlock>
+                    <TextBlock Margin="18,76,40,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FF9EACBF" Background="{x:Null}" FontFamily="Arial">
+                        <Run Text="Email:" />
+                        <Run Text="eOrder@monolithicpower.com" TextDecorations="Underline" Cursor="Hand" MouseLeftButtonUp="Run_MouseLeftButtonUp"/>
+                    </TextBlock>
+                </Grid>
+            </StackPanel>
+            <Grid Grid.Column="1">
+
+            </Grid>
+
+        </Grid>
+    </Grid>
+</Page>

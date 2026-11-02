@@ -1,0 +1,39 @@
+﻿<Page x:Class="VirtualBenchPro_v4.MB_SelectIC"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      MinHeight="169" Width="417"
+      Title="MB_CheckDongle" MaxHeight="300">
+
+    <Grid Background="White" Margin="0,0,0,2">
+        <Image HorizontalAlignment="Left" Height="30" Margin="15,10,0,0" VerticalAlignment="Top" Width="30" Source="/VirtualBenchPro_v4;component/Images/logo.png"/>
+        <Label Content="Please select IC below and then click 'Ok' to continue" Margin="55,10,15,0" VerticalAlignment="Top" Height="30"  FontFamily="Arial" FontWeight="Bold" Padding="0" VerticalContentAlignment="Center" />
+        
+        <ListBox Margin="47,50,12,41" BorderBrush="{x:Null}" VerticalAlignment="Stretch" ItemsSource="{Binding Modules}" SelectionMode="Single">
+            <ListBox.Resources>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="OverridesDefaultStyle" Value="true" />
+                    <Setter Property="SnapsToDevicePixels" Value="true" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <CheckBox Margin="5,2" IsChecked="{Binding IsSelected,RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type ListBoxItem}}}">
+                                    <ContentPresenter />
+                                </CheckBox>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.Resources>
+        </ListBox>
+
+
+
+
+
+        <Button Style="{StaticResource MessageButtonRounded}" Content="OK" Width="81" Margin="0,0,12,14" FontFamily="Arial" FontSize="10" Foreground="#FF6D7278" Padding="1" BorderBrush="#FF979797" Background="#FFD8D8D8" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="Ok_Button_Click"/>
+        <Button Style="{StaticResource MessageButtonRounded}" Content="Cancel" Width="81" Margin="0,0,103,14" FontFamily="Arial" FontSize="10" Foreground="#FF6D7278" Padding="1" BorderBrush="#FF979797" Background="White" Click="Cancel_Button_Click" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+    </Grid>
+</Page>

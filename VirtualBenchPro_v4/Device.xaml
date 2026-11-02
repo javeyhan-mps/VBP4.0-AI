@@ -1,0 +1,1700 @@
+﻿<Page
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:j="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
+    xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+    xmlns:Helper="clr-namespace:VirtualBenchPro_v4.Helper"
+    xmlns:attachedBehaviors="clr-namespace:VirtualBenchPro_v4.AttachedBehaviors"
+    x:Class="VirtualBenchPro_v4.Views.Device"
+    mc:Ignorable="d" Title="Device" Background="#FFF8F9FB">
+
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="58*"/>
+                <ColumnDefinition Width="42*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.ColumnSpan="2" Grid.Row="0" Background="White">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <Menu   x:Name="AddDeviceMenu"  Grid.Column="0" Background="White"  Margin="18,6,0,8"  Height="28" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="112"  Opacity="0.25"    BorderThickness="0.6" IsEnabled="False" >
+                    <MenuItem   FontSize="14"  BorderBrush="#FF1378FF"    Background="White"     FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center"   Template="{StaticResource NewDeviceMenuItem}" Height="25"   Width="110" >
+                        <MenuItem x:Name="Device_Scan"                FontFamily="Arial" Header="Scan"                 FontWeight="Normal"  Command="{Binding OperateChipComand}" CommandParameter="ScanI2C"   BorderThickness="1,1,1,1" BorderBrush="#FF1378FF"  Height="26"
+                                  ToolTip="Only Support I2C Devices"/>
+                        <MenuItem x:Name="Device_Connect_Manually"    FontFamily="Arial" Header="Connect Manually"     FontWeight="Normal" Command="{Binding OperateChipComand}" CommandParameter="AddDevice"  BorderThickness="1,0,1,1" BorderBrush="#FF1378FF" Height="26"/>
+                        <!--<MenuItem x:Name="Device_Add_Detached_Device" FontFamily="Arial" Header="Add Detached Device"  FontWeight="Normal"  Command="{Binding OperateChipComand}" CommandParameter="Virtual"   BorderThickness="1,1,1,1" BorderBrush="#FF1378FF" Height="26"/>-->
+                    </MenuItem>
+                </Menu>
+
+                <Grid Grid.Column="1" Margin="10,0,0,0">
+                    <Button x:Name="Scroll_Left_Button" HorizontalAlignment="Left" Width="15" BorderBrush="{x:Null}" FontFamily="Arial" FontSize="18" Foreground="{x:Null}" Padding="0" Click="Scroll_Left_Button_Click"  Margin="0" Cursor="Hand">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="White"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate>
+                                            <Grid Background="{TemplateBinding Background}">
+                                                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path86" Stroke="#FF1378FF" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M6.4 9.5L1 5 6.4.5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#FFC5F1FF"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <!--<ScrollViewer x:Name="Module_Slider" VerticalScrollBarVisibility="Disabled" Margin="15,0,31,0" HorizontalScrollBarVisibility="Hidden">
+                <StackPanel x:Name="Module_Container" Orientation="Horizontal"/>
+            </ScrollViewer>-->
+                    <ListBox SelectionMode="Single" Grid.Column="1" Name="Module_list" ItemsSource="{Binding ProConfig.Chips}" Margin="15,0,31,0" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Focusable="False" BorderBrush="Transparent" >
+                        <j:Interaction.Triggers>
+                            <j:EventTrigger EventName="SelectionChanged">
+                                <j:InvokeCommandAction Command="{Binding DataContext.ChangeChipSelectionCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page}}" CommandParameter="{Binding Path=SelectedItem, ElementName=Module_list}" />
+                            </j:EventTrigger>
+                        </j:Interaction.Triggers>
+
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListBoxItem}">
+                                <Setter Property="MinWidth" Value="70" />
+                                <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+                                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                                <Setter Property="Margin" Value="5 0 0 0" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListBoxItem">
+                                            <Border x:Name="bd" Cursor="Hand" BorderThickness="1" CornerRadius="4" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                                    Height="{c:Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBoxItem}}, Path=ActualHeight * 0.6}"  >
+                                                <!--Width="{c:Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBoxItem}}, Path=ActualWidth*0.9}" >-->
+                                                <StackPanel x:Name="Button_Content" Orientation="Horizontal" Margin="3 0 0 0" >
+                                                    <TextBlock x:Name="name_tb" Background="Transparent" FontSize="12" TextWrapping="Wrap" FontFamily="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3,0,0,0">
+                                                        <TextBlock.ToolTip>
+                                                            <ToolTip BorderBrush="Transparent" Background="Transparent">
+                                                                <Border CornerRadius="5" Background="White" BorderBrush="#FF0A3C7F" BorderThickness="1">
+                                                                    <TextBlock TextWrapping="Wrap" FontFamily="Arial" Foreground="#FF0A3C7F" Margin="5" Background="Transparent" 
+                                                                               Text="{Binding ChipAddr, Converter={StaticResource DeviceAddrToToolTipTextConverter}}" MaxWidth="300"/>
+                                                                </Border>
+                                                            </ToolTip>
+                                                        </TextBlock.ToolTip>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding Converter="{StaticResource ChipNameAddrFriendlyNameConverter}">
+                                                                <Binding Path="ChipName" />
+                                                                <Binding Path="ChipAddr" />
+                                                                <Binding Path="FriendlyName" />
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                        <TextBlock.ContextMenu>
+                                                            <ContextMenu>
+                                                                <MenuItem Header="Connect tile to a different address" Command="{Binding DataContext.ChangeAddressCommand, Source={x:Reference Module_list}}" >
+                                                                    <MenuItem.Visibility>
+                                                                        <MultiBinding Converter="{StaticResource ChangeAddrMenuItemVisibilityConverter}">
+                                                                           <Binding Path="ChipName" />
+                                                                           <Binding Path="ChipAddr" />
+                                                                        </MultiBinding>
+                                                                      </MenuItem.Visibility>
+                                                                </MenuItem>
+                                                                <MenuItem Header="Set friendly name" Command="{Binding DataContext.SetFriendlyNameCommand, Source={x:Reference Module_list}}"  />
+                                                            </ContextMenu>
+                                                        </TextBlock.ContextMenu>
+                                                    </TextBlock>
+                                                    <!--<CustomElements:Status_LED x:Name="Status_LED_Icon" VerticalAlignment="Center" HorizontalAlignment="Center" Width="5" Margin="0,0,3,0" />-->
+                                                    <Ellipse Fill="{Binding IsAddrAvalible, Converter={StaticResource IndicatorColorConverter}}" HorizontalAlignment="Center" Height="8" Stroke="WhiteSmoke" VerticalAlignment="Center" Width="8" Margin="3 0 0 0"/>
+                                                    <Button x:Name="close_btn" Margin="3,0,3,0" FontSize="11" FocusVisualStyle="{x:Null}" Width="10" Height="10" BorderBrush="Transparent" HorizontalContentAlignment="Center" HorizontalAlignment="Right" VerticalContentAlignment="Center" VerticalAlignment="Center" FontFamily="Arial"  Cursor="Hand" Panel.ZIndex="10">
+                                                        <Button.Background>
+                                                            <ImageBrush ImageSource="Images/close@3x.png"/>
+                                                        </Button.Background>
+                                                        <j:Interaction.Triggers>
+                                                            <j:EventTrigger EventName="Click">
+                                                                <j:InvokeCommandAction Command="{Binding DataContext.DeleteChipCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page}}" 
+                                                                            CommandParameter="{Binding Content, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListBoxItem}}"/>
+                                                            </j:EventTrigger>
+                                                        </j:Interaction.Triggers>
+                                                    </Button>
+                                                </StackPanel>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsSelected" Value="true">
+                                                    <Setter Property="Background" TargetName="bd" Value="#0A3C7F"/>
+                                                    <Setter Property="BorderBrush" TargetName="bd" Value="#0A3C7F"/>
+                                                    <Setter Property="Foreground" TargetName="name_tb" Value="White" />
+                                                    <Setter Property="Foreground" TargetName="close_btn" Value="White" />
+                                                </Trigger>
+                                                <Trigger Property="IsSelected" Value="false">
+                                                    <Setter Property="Background" TargetName="bd" Value="#C9D5E4"/>
+                                                    <Setter Property="BorderBrush" TargetName="bd" Value="#C9D5E4"/>
+                                                    <Setter Property="Foreground" TargetName="name_tb" Value="#FFFFFF" />
+                                                    <Setter Property="Foreground" TargetName="close_btn" Value="#c9d5e4" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" ScrollViewer.VerticalScrollBarVisibility="Disabled" />
+                                <!--<WrapPanel IsItemsHost="True" />-->
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                    </ListBox>
+
+                    <Button x:Name="Scroll_Right_Button" HorizontalAlignment="Right" Width="15" BorderBrush="{x:Null}" FontFamily="Arial" FontSize="14" Foreground="#FF979797" Padding="0" Margin="0,0,16,0" Click="Scroll_Right_Button_Click"  Panel.ZIndex="1" Cursor="Hand">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="White"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate>
+                                            <Grid Background="{TemplateBinding Background}">
+                                                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  Stroke="#FF1378FF" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M1.1 9.5L6.5 5 1.1.5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#FFC5F1FF"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+
+
+            </Grid>
+            <Grid Grid.Row="1" Grid.ColumnSpan="2" Background="#FFF8F9FB">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="223*"/>
+                    <ColumnDefinition Width="600*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel x:Name="DeviceLeftToolBox" Grid.Row="0" Orientation="Horizontal" Margin="20,10,0,-0.4" HorizontalAlignment="Left" Grid.ColumnSpan="2">
+                    <!--<Label HorizontalAlignment="Left"  AllowDrop="False" Focusable="False" IsTabStop="False" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Arial" FontSize="16" Padding="0,-2,0,0" Foreground="#FF0A3C7F" VerticalContentAlignment="Center" FontWeight="Bold" TargetUpdated="Label_TargetUpdated">-->
+                    <Label HorizontalAlignment="Left"  AllowDrop="False" Focusable="False" IsTabStop="False" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Arial" FontSize="16" Padding="0,-2,0,0" Foreground="#FF0A3C7F" VerticalContentAlignment="Center" FontWeight="Bold">
+                        <Label.Content>
+                            <ContentPresenter Content="{Binding CurrentChip.ChipName, NotifyOnTargetUpdated=True}" RecognizesAccessKey="False" />
+                        </Label.Content>
+                    </Label>
+                    <Label Content="{Binding CurrentChip.ChipAddr, Converter={StaticResource AddrConverter}}" Margin="0 0 0 0" HorizontalAlignment="Left" AllowDrop="False" Focusable="False" IsTabStop="False" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Arial" FontSize="16" Padding="0,0,0,0" Foreground="#FF0A3C7F" VerticalContentAlignment="Center" FontWeight="Bold"/>
+                    <Label Content="{Binding CurrentChip.FriendlyName, Converter={StaticResource FriendlyNameConverter}}" Margin="0 0 0 0" HorizontalAlignment="Left" AllowDrop="False" Focusable="False" IsTabStop="False" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Arial" FontSize="16" Padding="0,0,0,0" Foreground="#FF0A3C7F" VerticalContentAlignment="Center" FontWeight="Bold"/>
+                    <Label Content="{Binding CurrentChip.DSVersion, Converter={StaticResource DSVersionConverter}}" Margin="0 0 0 0" HorizontalAlignment="Left" AllowDrop="False" Focusable="False" IsTabStop="False" Background="{x:Null}" BorderBrush="{x:Null}" FontFamily="Arial" FontSize="16" Padding="0,0,0,0" Foreground="#FF0A3C7F" VerticalContentAlignment="Center" FontWeight="Bold"/>
+                    <Button x:Name="Export_Button" Grid.Column="0" Margin="13,0,0,0" FontFamily="Arial" BorderBrush="LightGray" HorizontalAlignment="Left" Width="94" Command="{Binding OperateChipComand}" 
+                        CommandParameter="MTPexport" Height="25" Foreground="{x:Null}" Visibility="Visible"  >
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Setter Property="Background" Value="#FF1C4EFF"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Margin="-1">
+                                                <Border Background="{TemplateBinding Background}" CornerRadius="4" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Margin="0,1" />
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                    <Label Content="Export" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" Padding="0" FontSize="14" />
+                                                    <Image Source="Images/export@3x.png" Width="12" Margin="8,0,0,0" Height="10" />
+                                                </StackPanel>
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#FF1378FF"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Background" Value="LightGray" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.IsEnabled>
+
+                            <MultiBinding Converter="{StaticResource OperationEnableConverter}" ConverterParameter="Export" >
+
+                                <Binding Path="CurrentChip"  />
+                                <Binding Path="UserLicense" />
+                            </MultiBinding>
+
+                        </Button.IsEnabled>
+                    </Button>
+                    <Button x:Name="Compare_Button" Grid.Column="0" Margin="13,0,0,0" FontFamily="Arial" BorderBrush="LightGray" HorizontalAlignment="Left" Width="94" Command="{Binding OperateChipComand}" 
+                            CommandParameter="Compare" Height="25" Foreground="{x:Null}" Visibility="{Binding CurrentChip.ChipName, Converter={StaticResource CompareVisibleConverter}}" 
+                            ToolTip="Compare the register values in current device with a saved ATE file.">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Cursor" Value="Hand"/>
+                                <Setter Property="Background" Value="#FF1C4EFF"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="Button">
+                                            <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Margin="-1">
+                                                <Border Background="{TemplateBinding Background}" CornerRadius="4" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Margin="0,1" />
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                    <Label Content="Compare" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="White" Padding="0" FontSize="14" />
+                                                    <!--<Image Source="Images/export@3x.png" Width="12" Margin="8,0,0,0" Height="10" />-->
+                                                </StackPanel>
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#FF1378FF"/>
+                                    </Trigger>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Background" Value="LightGray" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.IsEnabled>
+                            <MultiBinding Converter="{StaticResource CompareButtonEnableConverter}">
+                                <Binding Path="CurrentChip"/>
+                                <Binding Path="CurrentChip.IsAddrAvalible"/>
+                            </MultiBinding>
+                        </Button.IsEnabled>
+                    </Button>
+
+                </StackPanel>
+
+                <!-->
+                    <StackPanel Margin="0,10,400.4,-0.4" Width="100" Orientation="Horizontal" HorizontalAlignment="Right"
+                    Visibility="{Binding CurrentChip, Converter={StaticResource ScanI2CVisibilityConverter}}" Grid.Column="1">
+                    <Border Margin="0 0 0 0" Height="26" BorderBrush="#FFE9EDF2" BorderThickness="1" CornerRadius="4" Width="26" HorizontalAlignment="Right" VerticalAlignment="Top">
+                        <Button Command="{Binding OperateChipComand}" CommandParameter="ScanI2C" Panel.ZIndex="1" Margin="0" Cursor="Hand" Height="24" Background="#00000000" BorderBrush="{x:Null}" BorderThickness="0" >
+                            <Button.ToolTip>
+                                <ToolTip BorderBrush="Transparent" Background="Transparent">
+                                    <Border CornerRadius="5" Background="#FF0A3C7F">
+                                        <TextBlock TextWrapping="Wrap" FontFamily="Arial" Foreground="White" Margin="5" Background="Transparent" Text="Search Device Address" MaxWidth="300"/>
+                                    </Border>
+                                </ToolTip>
+                            </Button.ToolTip>
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Background" Value="Transparent"/>
+
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#33FFFFFF"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Canvas Name="I2Cinstance" Width="14" Height="17">
+                                <Canvas.ToolTip>
+                                    <ToolTip BorderBrush="Transparent" Background="Transparent">
+                                        <Border CornerRadius="5" Background="#FF0A3C7F">
+                                            <TextBlock TextWrapping="Wrap" FontFamily="Arial" Foreground="White" Margin="5" Background="Transparent" Text="Search Device Address" MaxWidth="300"/>
+                                        </Border>
+                                    </ToolTip>
+                                </Canvas.ToolTip>
+                                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="Rectangle2" StrokeThickness="1" Stroke="#FF9EACBF" Data="M0 4.5C0 2.01472 2.01472 0 4.5 0C6.98528 0 9 2.01472 9 4.5C9 6.98528 6.98528 9 4.5 9C2.01472 9 0 6.98528 0 4.5Z">
+                                    <Path.RenderTransform>
+                                        <TranslateTransform X="1" Y="1"/>
+                                    </Path.RenderTransform>
+                                </Path>
+                                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="Line6Copy2" StrokeThickness="1" Stroke="#FF9EACBF" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M5 6L0 0">
+                                    <Path.RenderTransform>
+                                        <MatrixTransform Matrix="-1 0 0 -1 13 16"/>
+                                    </Path.RenderTransform>
+                                </Path>
+                            </Canvas>
+
+                        </Button>
+                    </Border>
+                    <TextBlock Margin="5,5,0,0" FontFamily="Arial" Foreground="#FF3D608F" Width="25" Text="Scan" FontSize="10"  FontWeight="Bold"/>
+                </StackPanel> <-->
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin ="0,0,185.4,0">
+                    <Border Margin="0,10,5,0" Height="26" BorderBrush="#FFE9EDF2" BorderThickness="1" CornerRadius="4" Width="52" VerticalAlignment="Top">
+                        <Grid>
+                            <Button x:Name="Non_Volatile_Write_Button" Panel.ZIndex="1" Width="25" Margin="0" Cursor="Hand" HorizontalAlignment="Left" Height="24" BorderBrush="{x:Null}" Background="#00000000" BorderThickness="0" 
+                            ToolTipService.ShowOnDisabled="True" ToolTipService.ShowDuration="60000" >
+                                <j:Interaction.Triggers>
+                                    <j:EventTrigger EventName="Click">
+                                        <j:InvokeCommandAction Command="{Binding DataContext.CommunicationCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page}}" CommandParameter="ReadRAM" />
+                                    </j:EventTrigger>
+                                </j:Interaction.Triggers>
+                                <Button.ToolTip>
+                                    <ToolTip BorderBrush="Transparent" Background="Transparent">
+                                        <Border CornerRadius="5" Background="#FF0A3C7F">
+                                            <TextBlock TextWrapping="Wrap" FontFamily="Arial" Foreground="White" Margin="5" Background="Transparent" MaxWidth="300">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource OperationToolTipConverter}"  ConverterParameter="ReadRAM" >
+                                                        <Binding Path="CurrentChip" />
+                                                        <Binding Path="UserLicense" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </Border>
+                                    </ToolTip>
+                                </Button.ToolTip>
+                                <Canvas Width="14" Margin="0" Height="13" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M4.9 4.1L7 .5l2.1 3.6">
+                                        <Path.Stroke>
+                                            <MultiBinding Converter="{StaticResource OperationStrokeConverter}"  ConverterParameter="ReadRAM" >
+                                                <Binding Path="CurrentChip" />
+                                                <Binding Path="UserLicense" />
+                                            </MultiBinding>
+                                        </Path.Stroke>
+                                    </Path>
+                                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M7 9.1V1.3M13.5 8.9v1.8a1.8 1.8 0 0 1-1.8 1.8H2.3a1.8 1.8 0 0 1-1.8-1.8V8.9" >
+                                        <Path.Stroke>
+                                            <MultiBinding Converter="{StaticResource OperationStrokeConverter}"  ConverterParameter="ReadRAM" >
+                                                <Binding Path="CurrentChip" />
+                                                <Binding Path="UserLicense" />
+                                            </MultiBinding>
+                                        </Path.Stroke>
+                                    </Path>
+                                </Canvas>
+                                <Button.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource OperationEnableConverter}" ConverterParameter="ReadRAM" >
+                                        <Binding Path="CurrentChip"  />
+                                        <Binding Path="UserLicense" />
+                                    </MultiBinding>
+                                </Button.IsEnabled>
+                            </Button>
+                            <Line X1="26" Y1="0" X2="26" Y2="24" Stroke="#FFE9EDF2"  StrokeThickness="1" Panel.ZIndex="10" />
+                            <Button x:Name="Non_Volatile_Read_Button" Command="{Binding CommunicationCommand}" CommandParameter="WriteRAM" HorizontalAlignment="Right" Margin="0" Cursor="Hand" Width="25" BorderBrush="#FFE9EDF2" Padding="1" Background="#00000000" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderThickness="0,0,0,0" Foreground="{x:Null}" 
+                            ToolTipService.ShowOnDisabled="True" ToolTipService.ShowDuration="60000" >
+                                <Button.ToolTip>
+                                    <ToolTip BorderBrush="Transparent" Background="Transparent">
+                                        <Border CornerRadius="5" Background="#FF0A3C7F">
+                                            <TextBlock TextWrapping="Wrap" FontFamily="Arial" Foreground="White" Margin="5" Background="Transparent" MaxWidth="300"    >
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource OperationToolTipConverter}"  ConverterParameter="WriteRAM" >
+                                                        <Binding Path="CurrentChip" />
+                                                        <Binding Path="UserLicense" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </Border>
+                                    </ToolTip>
+                                </Button.ToolTip>
+                                <Canvas Width="14" Margin="0" Height="13" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M9.1 5.5L7 9.1 4.9 5.5">
+                                        <Path.Stroke>
+                                            <MultiBinding Converter="{StaticResource OperationStrokeConverter}"  ConverterParameter="WriteRAM" >
+                                                <Binding Path="CurrentChip" />
+                                                <Binding Path="UserLicense" />
+                                            </MultiBinding>
+                                        </Path.Stroke>
+                                    </Path>
+                                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M7 .5v7.8M13.5 8.9v1.8a1.8 1.8 0 0 1-1.8 1.8H2.3a1.8 1.8 0 0 1-1.8-1.8V8.9">
+                                        <Path.Stroke>
+                                            <MultiBinding Converter="{StaticResource OperationStrokeConverter}"  ConverterParameter="WriteRAM" >
+                                                <Binding Path="CurrentChip" />
+                                                <Binding Path="UserLicense" />
+                                            </MultiBinding>
+                                        </Path.Stroke>
+                                    </Path>
+                                </Canvas>
+                                <Button.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource OperationEnableConverter}"  ConverterParameter="WriteRAM" >
+                                        <Binding Path="CurrentChip" />
+                                        <Binding Path="UserLicense" />
+                                    </MultiBinding>
+                                </Button.IsEnabled>
+                            </Button>
+                        </Grid>
+                    </Border>
+                    <TextBlock Text="Volatile Memory"  Margin="0,10,14,0" TextWrapping="WrapWithOverflow" Padding="0" FontFamily="Arial" FontSize="10" Foreground="#FF496180" Width="39" Height="24" VerticalAlignment="Top" FontWeight="Bold"/>
+
+                    <Border Margin="0,10,5,0" Height="26" BorderBrush="#FFE9EDF2" BorderThickness="1" CornerRadius="4" Width="52" VerticalAlignment="Top">
+                        <Grid>
+                            <Button x:Name="Volatile_Read_Button" Command="{Binding CommunicationCommand}" CommandParameter="ReadROM" Panel.ZIndex="1" Margin="0,0,25,0" Cursor="Hand" Height="24" BorderBrush="{x:Null}" Background="#00000000" BorderThickness="0" 
+                         ToolTipService.ShowOnDisabled="True" ToolTipService.ShowDuration="60000" VerticalAlignment="Bottom">
+                                <Button.ToolTip>
+                                    <ToolTip BorderBrush="Transparent" Background="Transparent" >
+                                        <Border CornerRadius="5" Background="#FF0A3C7F">
+                                            <TextBlock TextWrapping="Wrap" FontFamily="Arial" Foreground="White" Margin="5" Background="Transparent" MaxWidth="300">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource OperationToolTipConverter}"  ConverterParameter="ReadROM" >
+                                                        <Binding Path="CurrentChip" />
+                                                        <Binding Path="UserLicense" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </Border>
+                                    </ToolTip>
+                                </Button.ToolTip>
+                                <Canvas Width="14" Margin="0" Height="13" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path3799" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M4.9 4.1L7 .5l2.1 3.6" >
+                                        <Path.Stroke>
+                                            <MultiBinding Converter="{StaticResource OperationStrokeConverter}"  ConverterParameter="ReadROM" >
+                                                <Binding Path="CurrentChip" />
+                                                <Binding Path="UserLicense" />
+                                            </MultiBinding>
+                                        </Path.Stroke>
+                                    </Path>
+                                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path3801" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M7 9.1V1.3M13.5 8.9v1.8a1.8 1.8 0 0 1-1.8 1.8H2.3a1.8 1.8 0 0 1-1.8-1.8V8.9" >
+                                        <Path.Stroke>
+                                            <MultiBinding Converter="{StaticResource OperationStrokeConverter}"  ConverterParameter="ReadROM" >
+                                                <Binding Path="CurrentChip" />
+                                                <Binding Path="UserLicense" />
+                                            </MultiBinding>
+                                        </Path.Stroke>
+                                    </Path>
+                                </Canvas>
+                                <Button.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource OperationEnableConverter}" ConverterParameter="ReadROM"  >
+                                        <Binding Path="CurrentChip"  />
+                                        <Binding Path="UserLicense" />
+                                    </MultiBinding>
+                                </Button.IsEnabled>
+                            </Button>
+                            <Line X1="26" Y1="0" X2="26" Y2="24" Stroke="#FFE9EDF2"  StrokeThickness="1" Panel.ZIndex="10" />
+                            <Button x:Name="Volatile_Write_Button" Command="{Binding CommunicationCommand}" CommandParameter="WriteROM" HorizontalAlignment="Right" Margin="0" Cursor="Hand" Width="25" BorderBrush="#FFE9EDF2" Padding="1" Background="#00000000" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderThickness="0,0,0,0" Foreground="{x:Null}" 
+                            ToolTipService.ShowOnDisabled="True" ToolTipService.ShowDuration="60000"  >
+                                <Button.ToolTip>
+                                    <ToolTip BorderBrush="Transparent" Background="Transparent">
+                                        <Border CornerRadius="5" Background="#FF0A3C7F">
+                                            <TextBlock TextWrapping="Wrap" FontFamily="Arial" Foreground="White" Margin="5" Background="Transparent" MaxWidth="300">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource OperationToolTipConverter}"  ConverterParameter="WriteROM" >
+                                                        <Binding Path="CurrentChip" />
+                                                        <Binding Path="UserLicense" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </Border>
+                                    </ToolTip>
+                                </Button.ToolTip>
+                                <Canvas Width="14" Margin="0" Height="13" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path3771" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M9.1 5.5L7 9.1 4.9 5.5">
+                                        <Path.Stroke>
+                                            <MultiBinding Converter="{StaticResource OperationStrokeConverter}"  ConverterParameter="WriteROM" >
+                                                <Binding Path="CurrentChip" />
+                                                <Binding Path="UserLicense" />
+                                            </MultiBinding>
+                                        </Path.Stroke>
+                                    </Path>
+                                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path3773" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M7 .5v7.8M13.5 8.9v1.8a1.8 1.8 0 0 1-1.8 1.8H2.3a1.8 1.8 0 0 1-1.8-1.8V8.9">
+                                        <Path.Stroke>
+                                            <MultiBinding Converter="{StaticResource OperationStrokeConverter}"  ConverterParameter="WriteROM" >
+                                                <Binding Path="CurrentChip" />
+                                                <Binding Path="UserLicense" />
+                                            </MultiBinding>
+                                        </Path.Stroke>
+                                    </Path>
+                                </Canvas>
+                                <Button.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource OperationEnableConverter}" ConverterParameter="WriteROM" >
+                                        <Binding Path="CurrentChip"  />
+                                        <Binding Path="UserLicense" />
+                                    </MultiBinding>
+                                </Button.IsEnabled>
+                            </Button>
+                        </Grid>
+                    </Border>
+                    <TextBlock Text="Non-Volatile Memory" Margin="0,10,30,0" TextWrapping="WrapWithOverflow" Padding="0" FontFamily="Arial" FontSize="10" Foreground="#FF496180" Width="61" Height="24" VerticalAlignment="Top" FontWeight="Bold"/>
+
+                    <Border Margin="-21,10,5,0" Height="26" BorderBrush="#FFE9EDF2" BorderThickness="1" CornerRadius="4" Width="27" VerticalAlignment="Top">
+                        <Border.Visibility>
+                            <MultiBinding Converter="{StaticResource ReadbackVisibilityConverter}">
+                                <Binding Path="CurrentChip" />
+                                <Binding Path="UserLicense"/>
+                            </MultiBinding>
+                        </Border.Visibility>
+                        <Grid>
+                            <Button x:Name="Start_Readback_Button" Panel.ZIndex="1" Width="25" Margin="0" Cursor="Hand" HorizontalAlignment="Left" Height="24" BorderBrush="{x:Null}" Background="#00000000" BorderThickness="0" 
+                            ToolTipService.ShowOnDisabled="True" ToolTipService.ShowDuration="60000" >
+                                <j:Interaction.Triggers>
+                                    <j:EventTrigger EventName="Click">
+                                        <j:InvokeCommandAction Command="{Binding DataContext.CommunicationCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page}}" CommandParameter="Readback" />
+                                    </j:EventTrigger>
+                                </j:Interaction.Triggers>
+                                <Button.ToolTip>
+                                    <ToolTip BorderBrush="Transparent" Background="Transparent">
+                                        <Border CornerRadius="5" Background="#FF0A3C7F">
+                                            <TextBlock TextWrapping="Wrap" FontFamily="Arial" Foreground="White" Margin="5" Background="Transparent" MaxWidth="300">
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource OperationToolTipConverter}" ConverterParameter="Readback" >
+                                                        <Binding Path="CurrentChip" />
+                                                        <Binding Path="UserLicense" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </Border>
+                                    </ToolTip>
+                                </Button.ToolTip>
+                                <Canvas Width="14" Margin="0" Height="13" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Canvas.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform ScaleX="0.018" ScaleY="0.018"/>
+                                            <TranslateTransform X="-2.3" Y="-2.8"/>
+                                        </TransformGroup>
+                                    </Canvas.RenderTransform>
+                                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M523.1 782.4l153.7 92.9L518.3 960l2.9-54.9c-2 0.1-2 0.1-4.1 0.2-2.5 0.2-3.7 0.2-5.1 0.2-219.6 0-398.2-175.9-398.2-392.2-0.2-103.9 41.5-203.6 116-276.7 12.1-12 31.7-12 43.9-0.1 5.8 5.7 9.1 13.5 9.1 21.6 0 8.1-3.2 15.9-9 21.6-63.1 62.5-98 145.5-98 233.6 0 182.5 150.9 331 336.2 331 1.4 0 1.4 0 2.9-0.2 0.9-0.1 0.9-0.1 1.9-0.2 1-0.1 1.7-0.2 2.4-0.3l3.9-61.2z m387.1-269c0.2 103.9-41.5 203.5-115.9 276.6-5.8 5.8-13.8 9-22 9-12.5 0.1-23.9-7.3-28.7-18.7-4.8-11.5-2.1-24.7 6.8-33.4 62.8-61.7 98-145.8 97.8-233.4 0-179.8-146.7-327-326.6-333.2l-3.4 61.4-154.9-91.1L520.8 64l0.4 57.6c215.6 4.8 389 178.9 389 391.8z">
+                                        <Path.Stroke>
+                                            <MultiBinding Converter="{StaticResource OperationStrokeConverter}" ConverterParameter="Readback" >
+                                                <Binding Path="CurrentChip" />
+                                                <Binding Path="UserLicense" />
+                                            </MultiBinding>
+                                        </Path.Stroke>
+                                        <Path.Fill>
+                                            <MultiBinding Converter="{StaticResource OperationStrokeConverter}" ConverterParameter="Readback" >
+                                                <Binding Path="CurrentChip" />
+                                                <Binding Path="UserLicense" />
+                                            </MultiBinding>
+                                        </Path.Fill>
+                                    </Path>
+                                </Canvas>
+                                <Button.IsEnabled>
+                                    <MultiBinding Converter="{StaticResource OperationEnableConverter}" ConverterParameter="Readback" >
+                                        <Binding Path="CurrentChip"  />
+                                        <Binding Path="UserLicense" />
+                                    </MultiBinding>
+                                </Button.IsEnabled>
+                            </Button>
+                        </Grid>
+                    </Border>
+                    <TextBlock Text="Start Readback" Margin="0,10,0,0" TextWrapping="WrapWithOverflow" Padding="0" FontFamily="Arial" FontSize="10" Foreground="#FF496180" Width="50" Height="24" VerticalAlignment="Top" FontWeight="Bold">
+                        <TextBlock.Visibility>
+                            <MultiBinding Converter="{StaticResource ReadbackVisibilityConverter}">
+                                <Binding Path="CurrentChip" />
+                                <Binding Path="UserLicense"/>
+                            </MultiBinding>
+                        </TextBlock.Visibility>
+                    </TextBlock>
+                </StackPanel>
+                
+                <Border Margin="0,10,21.4,0" Width="135" Height="32" HorizontalAlignment="Right" Background="#FF9EACBF" CornerRadius="4" VerticalAlignment="Top" Grid.Column="1">
+                    <Grid>
+                        <Label x:Name="Remaining_Writes"  HorizontalAlignment="Right" Margin="0,7,99,7" Padding="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" FontFamily="Arial" FontSize="16" Foreground="White" Width="26" Height="18">
+                            <Label.Content>
+                                <MultiBinding Converter="{StaticResource  MonitorMTPtimesConverter}">
+                                    <Binding Path="CurrentChip.Monitor.MTPtimes"/>
+                                    <Binding Path="UserLicense"/>
+                                    <Binding Path="CurrentChip"/>
+                                </MultiBinding>
+                            </Label.Content>
+                        </Label>
+
+                        <TextBlock Text="{Binding CurrentChip, Converter={StaticResource RightCornerTextConverter}}" HorizontalAlignment="Right" Margin="0,4,7,4" Padding="0" FontFamily="Arial" FontSize="10" Foreground="White" Width="76" TextWrapping="Wrap"/>
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Column="0" Grid.Row="2" Background="#FFF8F9FB">
+                <Border Margin="20,0,10,13" BorderBrush="#FFE9EDF2" BorderThickness="1" CornerRadius="5" />
+                <!--<TabControl BorderBrush="#FFE9EDF2" Margin="22,0,13,15" Padding="2" BorderThickness="0,1,0,0" >
+                    <TabItem Name="ParamTabItem" FocusVisualStyle="{x:Null}"  Header="Parameters" FontFamily="Arial" FontWeight="Bold" Height="30" Margin="-4,0,0,0" Width="126" FontSize="16">
+                        <TabItem.Style>
+                            <Style TargetType="{x:Type TabItem}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="TabItem">
+                                            <Grid>
+                                                <Border Name="SideBorder" Margin="0" Background="Transparent" BorderBrush="#FFE9EDF2" BorderThickness="0,0,1,0" />
+                                                <Grid Background="{TemplateBinding Background}" HorizontalAlignment="Stretch">
+                                                    <Border Name="BottomBorder" Margin="12,0,12,0" Background="Transparent" BorderBrush="#FF496180" BorderThickness="0,0,0,2" >
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="0,2,0,2" RecognizesAccessKey="True" />
+                                                            <Ellipse Fill="{Binding DataContext.CurrentChip.IsAddrAvalible, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page}, Converter={StaticResource IndicatorColorConventer}}" HorizontalAlignment="Center" Height="8" Stroke="WhiteSmoke" VerticalAlignment="Center" Width="8" Margin="3,0"/>
+                                                        </StackPanel>
+                                                    </Border>
+                                                </Grid>
+                                            </Grid>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter TargetName="BottomBorder" Property="BorderBrush" Value="#FF496180" />
+                                                    <Setter Property="Foreground" Value="#FF496180" />
+                                                    <Setter Property="Background" Value="#FFFFFFFF" />
+                                                </Trigger>
+                                                <Trigger Property="IsSelected" Value="False">
+                                                    <Setter TargetName="BottomBorder" Property="BorderBrush" Value="#FFF8F9FB" />
+                                                    <Setter Property="Foreground" Value="#FF9EACBF" />
+                                                    <Setter Property="Background" Value="#FFF8F9FB" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </TabItem.Style>
+
+
+                        <Grid Grid.Row="1" Margin="0,5,0,0" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="45*"/>
+                                <RowDefinition Height="55*"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid Grid.Row="0" >
+                                <Button Visibility="{Binding CurrentChip.ChipName, Converter={StaticResource ChannelVisibleConverter}}" HorizontalAlignment="Left" Width="15" BorderBrush="{x:Null}" FontFamily="Arial" FontSize="18" Foreground="{x:Null}" Padding="0"  Margin="0" Cursor="Hand" Click="Parameters_Channel_Scroll_Left_Click">
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}">
+                                            <Setter Property="Background" Value="White"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate>
+                                                        <Grid Background="{TemplateBinding Background}">
+                                                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path86" Stroke="#FF1378FF" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M6.4 9.5L1 5 6.4.5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Grid>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#FFC5F1FF"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                                <ListBox Name="lsbChannels" Visibility="{Binding CurrentChip.ChipName, Converter={StaticResource ChannelVisibleConverter}}" BorderBrush="Transparent" ItemsSource="{Binding CurrentChip.Pages}" Height="30" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="15,0">
+                                    <ListBox.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal"/>
+                                        </ItemsPanelTemplate>
+                                    </ListBox.ItemsPanel>
+                                    <j:Interaction.Triggers>
+                                        <j:EventTrigger EventName="SelectionChanged">
+                                            <j:InvokeCommandAction Command="{Binding DataContext.PageSelectCommand, ElementName=lsbChannels}" CommandParameter="{Binding Path=SelectedItem, ElementName=Module_list}" />
+                                        </j:EventTrigger>
+                                    </j:Interaction.Triggers>
+                                    <ListBox.ItemContainerStyle>
+                                        <Style TargetType="{x:Type ListBoxItem}">
+                                            <Setter Property="Height" Value="20" />
+                                            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+                                            <Setter Property="Margin" Value="0 0 5 0" />
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="ListBoxItem">
+                                                        <Border x:Name="ch_bd" Cursor="Hand" BorderThickness="1" CornerRadius="4" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                                            BorderBrush="#FF2B4CFE" Height="{TemplateBinding Height}"  Width="{TemplateBinding Width}" >
+                                                            <StackPanel Margin="5,0,5,0" Orientation="Horizontal">
+                                                                <TextBlock x:Name="ch_tb" Text="{Binding PageName}" Background="Transparent" TextWrapping="Wrap" FontSize="12" FontFamily="Bold" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3,0" />
+                                                                <Ellipse HorizontalAlignment="Center" Height="8" Stroke="WhiteSmoke" VerticalAlignment="Center" Width="8" Margin="4 0">
+                                                                    <Ellipse.Fill>
+                                                                        <MultiBinding Converter="{StaticResource ChannelIndicatorConverter}" ConverterParameter="Indicator" >
+                                                                            <Binding Path="PageName" />
+                                                                            <Binding Path="DataContext.CurrentChip.Monitor.InFault" RelativeSource ="{RelativeSource Mode=FindAncestor, AncestorType=Page}" />
+                                                                            <Binding Path="DataContext.CurrentChip.Monitor.ch0Fault" RelativeSource ="{RelativeSource Mode=FindAncestor, AncestorType=Page}" />
+                                                                            <Binding Path="DataContext.CurrentChip.Monitor.ch1Fault" RelativeSource ="{RelativeSource Mode=FindAncestor, AncestorType=Page}" />
+                                                                            <Binding Path="DataContext.CurrentChip.Monitor.ch2Fault" RelativeSource ="{RelativeSource Mode=FindAncestor, AncestorType=Page}" />
+                                                                            <Binding Path="DataContext.CurrentChip.Monitor.ch3Fault" RelativeSource ="{RelativeSource Mode=FindAncestor, AncestorType=Page}" />
+                                                                        </MultiBinding>
+                                                                    </Ellipse.Fill>
+                                                                    <Ellipse.Visibility>
+                                                                        <MultiBinding Converter="{StaticResource ChannelIndicatorConverter}" ConverterParameter="Visibility">
+                                                                            <Binding Path="PageName" />
+                                                                            <Binding Path="DataContext.CurrentChip.Monitor.InFault" RelativeSource ="{RelativeSource Mode=FindAncestor, AncestorType=Page}" />
+                                                                            <Binding Path="DataContext.CurrentChip.Monitor.ch0Fault" RelativeSource ="{RelativeSource Mode=FindAncestor, AncestorType=Page}" />
+                                                                            <Binding Path="DataContext.CurrentChip.Monitor.ch1Fault" RelativeSource ="{RelativeSource Mode=FindAncestor, AncestorType=Page}" />
+                                                                            <Binding Path="DataContext.CurrentChip.Monitor.ch2Fault" RelativeSource ="{RelativeSource Mode=FindAncestor, AncestorType=Page}" />
+                                                                            <Binding Path="DataContext.CurrentChip.Monitor.ch3Fault" RelativeSource ="{RelativeSource Mode=FindAncestor, AncestorType=Page}" />
+                                                                        </MultiBinding>
+                                                                    </Ellipse.Visibility>
+                                                                </Ellipse>
+                                                            </StackPanel>
+                                                        </Border>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger Property="IsSelected" Value="true">
+                                                                <Setter Property="Background" TargetName="ch_bd" Value="#FF2B4CFE"/>
+                                                                <Setter Property="Foreground" TargetName="ch_tb" Value="White" />
+                                                            </Trigger>
+                                                            <Trigger Property="IsSelected" Value="false">
+                                                                <Setter Property="Background" TargetName="ch_bd" Value="White"/>
+                                                                <Setter Property="Foreground" TargetName="ch_tb" Value="#FF2B4CFE" />
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </ListBox.ItemContainerStyle>
+                                </ListBox>
+                                <Button Visibility="{Binding CurrentChip.ChipName, Converter={StaticResource ChannelVisibleConverter}}" HorizontalAlignment="Right" Width="15" BorderBrush="{x:Null}" FontFamily="Arial" FontSize="14" Foreground="#FF979797" Padding="0" Margin="0" Click="Parameters_Channel_Scroll_Right_Click"  Panel.ZIndex="1" Cursor="Hand" DockPanel.Dock="Right">
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}">
+                                            <Setter Property="Background" Value="White"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate>
+                                                        <Grid Background="{TemplateBinding Background}">
+                                                            <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  Stroke="#FF1378FF" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M1.1 9.5L6.5 5 1.1.5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Grid>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="#FFC5F1FF"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                            </Grid>
+
+                            <ListBox Name="lstData" Margin="0 0 0 10" ItemsSource="{Binding BasicSetting}" Grid.Row="1" Grid.RowSpan="{Binding AdvancedSetting, Converter={StaticResource BasicRowSpanConverter}}" ItemTemplateSelector="{StaticResource ParamGroupTemplateSelector}" ItemContainerStyle="{StaticResource ChannelParamsListBoxItemStyle}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Focusable="False" BorderBrush="{x:Null}" BorderThickness="0,0,0,1" >
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <UniformGrid Columns="2" VerticalAlignment="Top"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                            </ListBox>
+
+                            <GridSplitter Grid.Row="1" Grid.Column="0" Height="10" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Background="Transparent"/>
+
+                            <Grid Grid.Row="2" Visibility="{Binding AdvancedSetting, Converter={StaticResource AdvancedVisibleConverter}}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="22" />
+                                    <RowDefinition Height="1*" />
+                                </Grid.RowDefinitions>
+                                <Label Grid.Row="0" Margin="-2,0,-4,0" Content="ADVANCED PARAMETERS" FontSize="10" VerticalAlignment="Top" Background="#FFF8F9FB" Foreground="#FFC5C5C5" Height="22"  VerticalContentAlignment="Center" FontFamily="Arial" BorderThickness="0,1,0,0" BorderBrush="#FFE9EDF2"/>
+
+                                <TabControl Grid.Row="1" Margin="10,0,0,0" Name="tbReg" SelectedIndex="{Binding CategorySelectedId}" ItemsSource="{Binding AdvancedSetting}" BorderThickness="0" 
+                                            ItemContainerStyleSelector="{StaticResource CategoryStyleSelector}" BorderBrush="#FFE9EDF2" FontSize="14"
+                                            ScrollViewer.CanContentScroll="True" >
+                                    <TabControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <DockPanel LastChildFill="True" Height="20" Margin="-5,0,0,0" >
+                                                <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center"
+                                        ToolTip="{Binding Path=Name,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                                        Text="{Binding Path=Name,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" 
+                                        TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" TextAlignment="Center"/>
+                                            </DockPanel>
+                                        </DataTemplate>
+                                    </TabControl.ItemTemplate>
+                                    <TabControl.ContentTemplate>
+                                        <DataTemplate>
+                                            <TabControl Name="SubtbReg" ItemsSource="{Binding Subcategories}" BorderThickness="0" Margin="2,5,0,0" ItemContainerStyleSelector="{StaticResource SubcategoryStyleSelector}">
+                                                <TabControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <DockPanel LastChildFill="True" >
+                                                            <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" FontSize="11" 
+                                                        ToolTip="{Binding Path=Name,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}"
+                                                        Text="{Binding Path=Name,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" 
+                                                        TextTrimming="CharacterEllipsis" />
+                                                        </DockPanel>
+                                                    </DataTemplate>
+                                                </TabControl.ItemTemplate>
+                                                <TabControl.ContentTemplate>
+                                                    <DataTemplate>
+                                                        <ListBox ItemsSource="{Binding ParameterGroups}" ItemTemplateSelector="{StaticResource ParamGroupTemplateSelector}" ItemContainerStyle="{StaticResource ChannelParamsListBoxItemStyle}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Focusable="False" BorderBrush="Transparent"
+                                                        >
+                                                            <ListBox.ItemsPanel>
+                                                                <ItemsPanelTemplate>
+                                                                    <UniformGrid Columns="2" VerticalAlignment="Top"/>
+                                                                </ItemsPanelTemplate>
+                                                            </ListBox.ItemsPanel>
+                                                        </ListBox>
+                                                    </DataTemplate>
+                                                </TabControl.ContentTemplate>
+                                            </TabControl>
+                                        </DataTemplate>
+                                    </TabControl.ContentTemplate>
+                                </TabControl>
+                            </Grid>
+                            </Grid>
+                     
+                    </TabItem>
+                    <TabItem Style="{StaticResource TabItem_HeaderFlat}" Header="Overview" FontFamily="Arial" FontWeight="Bold" Margin="-2,0,0,0" FontSize="16" Width="106">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <Grid x:Name="overview_tab" Margin="0 5 0 0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="35*"/>
+                                    <RowDefinition Height="65*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50*"/>
+                                    <ColumnDefinition Width="50*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Orientation="Vertical" Grid.ColumnSpan="2" Margin="5 10 10 5" MinHeight="100">
+                                    <Label Content="{Binding DescriptionTitle}" Foreground="#154585" FontSize="14" Height="30" FontWeight="Bold" FontFamily="Arial"/>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding Description}" Foreground="#FF153C7E" FontSize="13" Margin="5 0" LineHeight="22" FontWeight="Normal" FontFamily="Arial"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical" Grid.Row="1" Margin="5">
+                                    <Label Content="{Binding FeaturesTitle}" Foreground="#154585" FontSize="14" Height="30" FontWeight="Bold" FontFamily="Arial"/>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding Features}" Foreground="#FF153C7E" FontSize="13" Margin="5 0" LineHeight="25" FontWeight="Normal" FontFamily="Arial" />
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1" Margin="5 5 10 5" >
+                                    <Label Content="{Binding DiagramTitle}" Foreground="#154585" FontSize="14" Height="30" FontWeight="Bold" FontFamily="Arial"/>
+                                    <Image Source="{Binding Diagram}" Margin="5 0" MouseLeftButtonUp="Image_MouseLeftButtonUp" Cursor="Hand">
+                                        <Image.ToolTip>
+                                            <ToolTip BorderBrush="Transparent" Background="Transparent">
+                                                <Border CornerRadius="5" Background="#FF0C98FF">
+                                                    <TextBlock TextWrapping="Wrap" FontFamily="Arial" Foreground="White" Margin="5" Background="Transparent" Text="Click To Enlarge (Pop-Up)" MaxWidth="300"/>
+                                                </Border>
+                                            </ToolTip>
+                                        </Image.ToolTip>
+                                    </Image>
+                                </StackPanel>
+                            </Grid>
+
+                        </ScrollViewer>
+                    </TabItem>
+                </TabControl>-->
+                <TabControl Name="ParamTabItem" BorderBrush="#FFE9EDF2" Margin="22,0,13,15" Padding="2" BorderThickness="0,1,0,0" 
+                            ItemsSource="{Binding RegisterRegionforBk}" FocusVisualStyle="{x:Null}"
+                            ContentTemplateSelector="{StaticResource ParamsOverviewSelector}" SelectionChanged="ParamTabItem_SelectionChanged">
+
+                    <j:Interaction.Triggers>
+                        <j:EventTrigger EventName="SelectionChanged">
+                            <j:InvokeCommandAction Command="{Binding DataContext.PageSelectCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page}}" />
+                        </j:EventTrigger>
+                    </j:Interaction.Triggers>
+
+                    <TabControl.ItemContainerStyle>
+                        <Style TargetType="{x:Type TabItem}">
+                            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="TabItem">
+                                        <Grid Height="40">
+                                            <Border Name="SideBorder" Margin="0" Background="Transparent" BorderBrush="#FFE9EDF2" BorderThickness="0,0,1,0" />
+                                            <Grid Background="{TemplateBinding Background}" HorizontalAlignment="Stretch">
+                                                <Border Name="BottomBorder" Margin="12,0,12,0" Background="Transparent" BorderBrush="#FF496180" BorderThickness="0,0,0,2" >
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="0,2,0,2" RecognizesAccessKey="True" />
+                                                        <!--<Ellipse Fill="{Binding DataContext.CurrentChip.IsAddrAvalible, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page}, Converter={StaticResource IndicatorColorConventer}}" HorizontalAlignment="Center" Height="8" Stroke="WhiteSmoke" VerticalAlignment="Center" Width="8" Margin="3,0"/>-->
+                                                    </StackPanel>
+                                                </Border>
+                                            </Grid>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter TargetName="BottomBorder" Property="BorderBrush" Value="#FF496180" />
+                                                <Setter Property="Foreground" Value="#FF496180" />
+                                                <Setter Property="Background" Value="#FFFFFFFF" />
+                                            </Trigger>
+                                            <Trigger Property="IsSelected" Value="False">
+                                                <Setter TargetName="BottomBorder" Property="BorderBrush" Value="#FFF8F9FB" />
+                                                <Setter Property="Foreground" Value="#FF9EACBF" />
+                                                <Setter Property="Background" Value="#FFF8F9FB" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </TabControl.ItemContainerStyle>
+                    <TabControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="-4,0,0,0" Width="126" Orientation="Vertical" >
+                                <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Margin="12 0 0 0" HorizontalAlignment="Left"
+                                        Text="{Binding Path=MemoryType,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" 
+                                        TextTrimming="CharacterEllipsis" TextAlignment="Center"
+                                        FontFamily="Arial" FontWeight="Normal" FontSize="9" >
+                                    <TextBlock.Visibility>
+                                        <MultiBinding Converter="{StaticResource ParameterTipVisibleConverter}">
+                                            <Binding Path="MemoryType"/>
+                                            <Binding RelativeSource="{RelativeSource Mode=FindAncestor,AncestorType=TabControl}"/>
+                                        </MultiBinding>
+                                    </TextBlock.Visibility>
+                                </TextBlock>
+                                <!--Visibility="{Binding Path=MemoryType, Converter={StaticResource TitleVisbilityConverter}}"/>-->
+                                <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center"  Margin="12 0 0 0" HorizontalAlignment="Left"
+                                        Text="{Binding Path=RegionName,Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" 
+                                        TextTrimming="CharacterEllipsis" TextAlignment="Center"
+                                        FontFamily="Arial" FontWeight="Bold" FontSize="15" />
+                            </StackPanel>
+
+                        </DataTemplate>
+                    </TabControl.ItemTemplate>
+                </TabControl>
+            </Grid>
+
+            <GridSplitter Grid.Row="2" Grid.Column="0" Width="5" VerticalAlignment="Stretch" HorizontalAlignment="Right" Background="Transparent"/>
+
+            <Grid x:Name="grid21" Margin="7,0,17,13" Grid.Column="1" Grid.Row="2" Background="#FFF8F9FB">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Visibility="{Binding CurrentChip.ChipName, Converter={StaticResource MonitorVisibleConverter}, ConverterParameter= Monitoring}" Margin="2,0,2,0">
+                    <Grid Visibility="{Binding DataContext.MonitoringVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" MinHeight="102" MaxHeight="{c:Binding ElementName=grid21, Path='ActualHeight == 0 ? 0 : ActualHeight-100'}"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0" BorderBrush="#FFE9EDF2" BorderThickness="1" CornerRadius="5" Background="White">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="10" ShadowDepth="1" Color="#FFF0F5F8" Direction="0"/>
+                            </Border.Effect>
+                            <Grid x:Name="Monitoring_Card" MinHeight="100" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="0.5" />
+                                    <RowDefinition Height="1*"/>
+                                </Grid.RowDefinitions>
+                                <!--<Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>-->
+                                <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
+                                    <Label Content="Monitoring" VerticalAlignment="Center" Foreground="#FF496180" FontWeight="Bold" Height="30" Padding="20,0,0,0" Margin="0" VerticalContentAlignment="Center" FontFamily="Arial" HorizontalAlignment="Left" FontSize="16"/>
+                                    <Button Cursor="Hand" Grid.Column="1" Background="Transparent" BorderBrush="Transparent" Margin="2 0 0 0" HorizontalAlignment="Left" Width="16" Height="16"  
+                                        Command="{Binding DataContext.MonitoringFloatCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Page}}" CommandParameter="{Binding ElementName=Monitoring_ScrollViewer}">
+                                        <Button.Style>
+                                            <Style TargetType="Button">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate>
+                                                            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Source="/VirtualBenchPro_v4;component/Images/info-modal-inactive@2x.png" Height="12" Width="12"/>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#FFC5F1FF"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                </StackPanel>
+                                <Rectangle Fill="LightGray" Grid.ColumnSpan="2" Grid.Row="1"/>
+
+                                <!--Grid.Column="0" Grid.Row="2"-->
+                                <ScrollViewer x:Name="Monitoring_ScrollViewer" Grid.Row="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Margin="2,2,2,2">
+                                    <StackPanel Orientation="Vertical">
+                                        <ListView x:Name="InputParams_Table" ItemsSource="{Binding CurrentChip.Monitor.MoniterInputParams}" BorderBrush="Transparent" Margin="10,5,0,0"
+                                              Visibility="{Binding CurrentChip.Monitor.MoniterInputParams, Converter={StaticResource MonitorInputParamsVisibilityConverter}}"
+                                              Helper:ScrollViewerHelper.IsPreviewMouseWheelEventMovetoNext="True" ItemTemplateSelector="{StaticResource MonitorInputParamSelector}">
+                                            <ListView.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel Orientation="Horizontal"></StackPanel>
+                                                </ItemsPanelTemplate>
+                                            </ListView.ItemsPanel>
+                                            <ListView.Resources>
+                                                <Style TargetType="{x:Type ListViewItem}">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                                <Border Name="Bd" SnapsToDevicePixels="true" Padding="0" 
+                                                                        Background="Transparent" BorderBrush="Transparent" BorderThickness="0">
+                                                                    <ContentPresenter />  
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Setter Property="Cursor" Value="Hand"/>
+                                                </Style>
+                                            </ListView.Resources>
+                                        </ListView>
+                                        
+                                        <ListView x:Name="Datagrid_ListView" ItemsSource="{Binding CurrentChip.Monitor.MonitorItemCollection}" BorderBrush="Transparent" Margin="5" HorizontalAlignment="Stretch"
+                                              Helper:ScrollViewerHelper.IsPreviewMouseWheelEventMovetoNext="True">
+
+                                            <ListView.ItemContainerStyle>
+                                                <Style TargetType="{x:Type ListViewItem}">
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                                                <DataGrid x:Name="Data_Table"  ColumnWidth="SizeToCells" Style="{DynamicResource DGHeaderStyle1}" Margin="5 0" 
+                                                            ItemsSource="{Binding MonitorItems}" Background="White" 
+                                                            attachedBehaviors:DataGridColumnsBehavior.BindableColumns="{Binding devMonitorColumns}"
+                                                            AutoGenerateColumns="False" CanUserSortColumns="False"  HeadersVisibility="Column"
+                                                            EnableRowVirtualization="False" CanUserAddRows="False" BorderBrush="Transparent"  GridLinesVisibility="None" FrozenColumnCount="1" IsHitTestVisible="True" 
+                                                            CanUserResizeColumns="False" CanUserReorderColumns="False" />
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </ListView.ItemContainerStyle>
+
+                                            <ListView.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel Orientation="Horizontal" ScrollViewer.VerticalScrollBarVisibility="Disabled" />
+                                                    <!--<WrapPanel IsItemsHost="True" />-->
+                                                </ItemsPanelTemplate>
+                                            </ListView.ItemsPanel>
+                                        </ListView>
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </Grid>
+                        </Border>
+
+                        <GridSplitter Grid.Row="1" Height="10" HorizontalAlignment="Stretch" Background="Transparent" ResizeBehavior="PreviousAndCurrent" />
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Row="1" Margin="-8,0,-8,0" Background="#FFF8F9FB" Visibility="{Binding CurrentChip.ChipName, Converter={StaticResource RegisterVisibleConverter}}">
+                    <Border BorderBrush="#FFE9EDF2" BorderThickness="1" CornerRadius="5" Margin="10 0" >
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius="14" ShadowDepth="1" Color="#FFF0F5F8"/>
+                        </Border.Effect>
+                    </Border>
+                    <TabControl Name="tc_right" BorderBrush="#FFE9EDF2" Margin="10 0" SelectedIndex="{Binding tcSelectedIndex}">
+                        <j:Interaction.Triggers>
+                            <j:EventTrigger EventName="SelectionChanged">
+                                <j:InvokeCommandAction Command="{Binding MonitorTabChangedCommand}" CommandParameter="{Binding Path=SelectedItem, ElementName=tc_right}"/>
+                            </j:EventTrigger>
+                        </j:Interaction.Triggers>
+                        <TabControl.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="0,0,5,5"/>
+                            </Style>
+                        </TabControl.Resources>
+                        <TabItem Style="{StaticResource StatusTabItem_HeaderFlat}" Header="Fault/Status" FontFamily="Arial" FontWeight="Bold" Margin="0" Width="110"  FontSize="14" Height="32" 
+                             Visibility="{Binding CurrentChip.ChipName, Converter={StaticResource FaultVisibleConverter}}">
+                            <Grid Cursor="Arrow">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="56"/>
+                                </Grid.RowDefinitions>
+
+                                <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                                    <DockPanel HorizontalAlignment="Stretch">
+                                        <DataGrid Name="FaultGrid" Margin="10 0 0 0" ColumnWidth="SizeToCells" AlternationCount="2" Style="{DynamicResource DGHeaderStyle}" Background="Transparent" DockPanel.Dock="Top"
+                                            ItemsSource="{Binding CurrentChip.Monitor.FaultItems}" SelectionMode="Single" ScrollViewer.CanContentScroll="False" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"
+                                            attachedBehaviors:DataGridColumnsBehavior.BindableColumns="{Binding CurrentChip.Monitor.FaultColums}" HorizontalScrollBarVisibility="Disabled"
+                                            BorderBrush="Transparent"  CanUserAddRows="False" EnableRowVirtualization="False"  GridLinesVisibility="None" UseLayoutRounding="False"
+                                            CanUserSortColumns="False"  HeadersVisibility="Column"   AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False"  
+                                            Helper:ScrollViewerHelper.IsPreviewMouseWheelEventMovetoNext="True" />
+                                        <DataGrid Name="StatusGrid" Margin="3 0 0 0" ColumnWidth="SizeToCells" AlternationCount="2" Style="{DynamicResource DGHeaderStyle}" Background="Transparent" DockPanel.Dock="Right"
+                                            ItemsSource="{Binding CurrentChip.Monitor.StatusItems}" SelectionMode="Single" ScrollViewer.CanContentScroll="False" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"
+                                            attachedBehaviors:DataGridColumnsBehavior.BindableColumns="{Binding CurrentChip.Monitor.StatusColums}" HorizontalScrollBarVisibility="Disabled"
+                                            BorderBrush="Transparent"  CanUserAddRows="False" EnableRowVirtualization="False"  GridLinesVisibility="None" UseLayoutRounding="False"
+                                            CanUserSortColumns="False"  HeadersVisibility="Column"   AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False"
+                                            LoadingRow="StatusGrid_LoadingRow" UnloadingRow="StatusGrid_UnloadingRow" 
+                                            Helper:ScrollViewerHelper.IsPreviewMouseWheelEventMovetoNext="True"/>
+                                    </DockPanel>
+                                </ScrollViewer>
+
+                                <Grid Grid.Row="1">
+                                    <Button Style="{StaticResource ButtonRoundedWhite}" Cursor="Hand" Content="{Binding CurrentChip ,Converter={StaticResource ClearFaultButtonContent}}" Command="{Binding CommunicationCommand}" CommandParameter="ClearFault" HorizontalAlignment="Right"
+                                        Margin="0,0,16,16" VerticalAlignment="Bottom" Width="108" Height="24" BorderBrush="#FFE1E7EF" Foreground="#FF1378FF" FontFamily="Arial" FontSize="14" FontWeight="Normal">
+                                        <Button.Visibility>
+                                            <MultiBinding Converter="{StaticResource ClearFaultVisibilityConverter}">
+                                                <Binding Path="CurrentChip"/>
+                                                <Binding Path="DataContext.CurrentPage" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=Page}"/>
+                                            </MultiBinding>    
+                                        </Button.Visibility>
+                                    </Button>
+                                    <Button Style="{StaticResource ButtonRoundedWhite}" Cursor="Hand" Content="Read Once" Command="{Binding CommunicationCommand}" CommandParameter="ReadFault" HorizontalAlignment="Right"
+                                    Margin="0,0,16,16" VerticalAlignment="Bottom" Width="108" Height="24" BorderBrush="#FFE1E7EF" Foreground="#FF1378FF" FontFamily="Arial" FontSize="14" FontWeight="Normal"
+                                    Visibility="{Binding CurrentChip, Converter={StaticResource ReadFaultVisibilityConverter},ConverterParameter=1}"/>
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+
+                        <TabItem Style="{StaticResource FaultTabItem_HeaderFlat}" Header="Fault/Interrupt" FontFamily="Arial" FontWeight="Bold" Margin="0" Width="120"  FontSize="14" Height="32" 
+                             Visibility="{Binding CurrentChip, Converter={StaticResource BatteryTabVisbilityConverter}, ConverterParameter=Fault/Interrupt}">
+                            <Grid Cursor="Arrow">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="56"/>
+                                </Grid.RowDefinitions>
+
+                                <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                                    <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal"> 
+                                        <DataGrid Name="Fault1Grid" Margin="10 0 0 0" ColumnWidth="SizeToCells" AlternationCount="2" Style="{DynamicResource DGHeaderStyle}" Background="Transparent" DockPanel.Dock="Top"
+                                            ItemsSource="{Binding CurrentChip.Monitor.Page2FaultItems}" SelectionMode="Single" ScrollViewer.CanContentScroll="False" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"
+                                            attachedBehaviors:DataGridColumnsBehavior.BindableColumns="{Binding CurrentChip.Monitor.Page2FaultColums}" HorizontalScrollBarVisibility="Disabled"
+                                            BorderBrush="Transparent"  CanUserAddRows="False" EnableRowVirtualization="False"  GridLinesVisibility="None" UseLayoutRounding="False"
+                                            CanUserSortColumns="False"  HeadersVisibility="Column"   AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False"  
+                                            Helper:ScrollViewerHelper.IsPreviewMouseWheelEventMovetoNext="True" />
+                                        <DataGrid Name="InterruptGrid" Margin="3 0 0 0" ColumnWidth="SizeToCells" AlternationCount="2" Style="{DynamicResource DGHeaderStyle}" Background="Transparent" DockPanel.Dock="Right"
+                                            ItemsSource="{Binding CurrentChip.Monitor.InterruptItems}" SelectionMode="Single" ScrollViewer.CanContentScroll="False" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"
+                                            attachedBehaviors:DataGridColumnsBehavior.BindableColumns="{Binding CurrentChip.Monitor.InterruptColums}" HorizontalScrollBarVisibility="Disabled"
+                                            BorderBrush="Transparent"  CanUserAddRows="False" EnableRowVirtualization="False"  GridLinesVisibility="None" UseLayoutRounding="False"
+                                            CanUserSortColumns="False"  HeadersVisibility="Column"   AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False"
+                                            LoadingRow="StatusGrid_LoadingRow" UnloadingRow="StatusGrid_UnloadingRow" 
+                                            Helper:ScrollViewerHelper.IsPreviewMouseWheelEventMovetoNext="True"/>
+                                    </StackPanel>
+                                </ScrollViewer>
+
+                                <Grid Grid.Row="1">
+                                    <Button Style="{StaticResource ButtonRoundedWhite}" Cursor="Hand" Content="Read Mask" Command="{Binding CommunicationCommand}" CommandParameter="ReadMask" HorizontalAlignment="Right"
+                                        Margin="0,0,16,16" VerticalAlignment="Bottom" Width="108" Height="24" BorderBrush="#FFE1E7EF" Foreground="#FF1378FF" FontFamily="Arial" FontSize="14" FontWeight="Normal"
+                                        Visibility="{Binding CurrentChip, Converter={StaticResource ReadFaultVisibilityConverter},ConverterParameter=2}"/>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <Button Style="{StaticResource ButtonRoundedWhite}" Cursor="Hand" Content="Clear Fault" Command="{Binding CommunicationCommand}" CommandParameter="ClearFault" HorizontalAlignment="Right"
+                                        Margin="0,0,16,16" VerticalAlignment="Bottom" Width="108" Height="24" BorderBrush="#FFE1E7EF" Foreground="#FF1378FF" FontFamily="Arial" FontSize="14" FontWeight="Normal"
+                                        Visibility="{Binding CurrentChip, Converter={StaticResource ReadFaultVisibilityConverter},ConverterParameter=3}"/>
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+
+                        <TabItem Name="BlackBoxTabItem" Style="{StaticResource TabItem_HeaderFlat}" Header="Black Box" FontFamily="Arial" FontWeight="Bold" Margin="0" Width="110"  FontSize="14" Height="32"
+                                 Visibility="{Binding CurrentChip, Converter={StaticResource BatteryTabVisbilityConverter}, ConverterParameter=BlackBox}" MouseUp="BlackBoxTabItem_MouseUp" >
+                            <Grid Cursor="Arrow">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="1*"/>
+                                </Grid.RowDefinitions>
+
+                                <Label Content="Filter" FontFamily="Arial" Foreground="#FF496180" HorizontalAlignment="Right" Margin="0 0 180 0" VerticalAlignment="Center"/>
+                                <TextBox  Name="watermarktb" Text="Register Name" Foreground="#c1d0dc" FontSize="13" IsHitTestVisible="False" VerticalAlignment="Center" IsEnabled="False" HorizontalAlignment="Right" Height="30" Width="150" 
+                                         Margin="0 0 20 0" Padding="5 0 0 0" BorderBrush="Transparent" VerticalContentAlignment="Center">
+                                    <TextBox.Visibility>
+                                        <MultiBinding Converter="{StaticResource WaterMarkVisibleConverter}" ConverterParameter="license">
+                                            <Binding ElementName="filtertb" Path="IsFocused" />
+                                            <Binding ElementName="filtertb" Path="Text" />
+                                        </MultiBinding>
+                                    </TextBox.Visibility>
+                                </TextBox>
+                                <TextBox Name="filtertb" Text="{Binding BlackBoxFilterText, Mode=OneWayToSource, UpdateSourceTrigger=LostFocus}" Background="Transparent" FontSize="13" Foreground="#FF496180" VerticalAlignment="Center" HorizontalAlignment="Right" Height="26" Width="150" 
+                                         Margin="0 0 20 0" Padding="5 0 0 0"  VerticalContentAlignment="Center" KeyDown="filtertb_KeyDown" FontWeight="Normal">
+                                    <TextBox.Resources>
+                                        <Style TargetType="{x:Type Border}">
+                                            <Setter Property="CornerRadius" Value="4"/>
+                                            <Setter Property="BorderBrush" Value="#c1d0dc"/>
+                                        </Style>
+                                    </TextBox.Resources>
+                                </TextBox>
+
+                                <DataGrid x:Name="BlackBox_DataGrid" Grid.Row="1" Margin="10,0,0,0" ItemsSource="{Binding BlackBoxViewRegisterMap}" BorderBrush="Transparent"  SelectionMode="Single" AlternationCount="2" Style="{DynamicResource DGHeaderStyle}" 
+                                          AutoGenerateColumns="False" IsReadOnly="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" CanUserAddRows="False" CanUserResizeColumns="False" 
+                                          CanUserResizeRows="False" Background="Transparent"  EnableRowVirtualization="False" HeadersVisibility="Column" GridLinesVisibility="None" 
+                                          ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True"
+                                          CanUserReorderColumns="False" >
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn ElementStyle="{StaticResource CellTextVerticalCentered}" MinWidth="160" Width="SizeToCells" Header="Register Name" Binding="{Binding Name}" FontFamily="Arial"  />
+                                        <DataGridTextColumn ElementStyle="{StaticResource CellTextCentered}" MinWidth="60" Width="*" Header="Address" Binding="{Binding Address, Converter={StaticResource dhc}}" FontFamily="Arial"/>
+                                        <DataGridTextColumn ElementStyle="{StaticResource CellTextCentered}" MinWidth="55"  Width="*" Header="Type" Binding="{Binding DataType}" FontFamily="Arial"/>
+                                        <DataGridTextColumn ElementStyle="{StaticResource CellTextCentered}" MinWidth="60"  Width="*" Header="Value" Binding="{Binding Value, Converter={StaticResource dhc}}" FontFamily="Arial"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+                        </TabItem>
+
+                        <TabItem Style="{StaticResource TabItem_HeaderFlat}" Header="Waveforms" FontFamily="Arial" FontWeight="Bold" Margin="0" Width="100" FontSize="14" Height="32"  
+                             Visibility="{Binding CurrentChip.ChipName, Converter={StaticResource MonitorVisibleConverter}, ConverterParameter= Waveform}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="27" />
+                                    <RowDefinition Height="1*" />
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Row="0" Grid.Column="0">
+                                    <Button HorizontalAlignment="Left" Width="15" BorderBrush="{x:Null}" FontFamily="Arial" FontSize="18" Foreground="{x:Null}"
+                                            Visibility="{Binding CurrentChip.ChipName, Converter={StaticResource ChannelVisibleConverter}}"
+                                            Padding="0"  Margin="0" Cursor="Hand" Click="Waveforms_Channel_Scroll_Left_Click">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}">
+                                                <Setter Property="Background" Value="White"/>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate>
+                                                            <Grid Background="{TemplateBinding Background}">
+                                                                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path86" Stroke="#FF1378FF" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M6.4 9.5L1 5 6.4.5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Grid>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#FFC5F1FF"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                    <ListBox Name="Channel_lb" ItemsSource="{Binding CurrentChip.Monitor.LineGraphs}"  Style="{StaticResource ListBoxStyle}" Margin="15,0" SelectionChanged="Channel_lb_SelectionChanged" SelectionMode="Single">
+                                        <ListBox.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Orientation="Horizontal"/>
+                                            </ItemsPanelTemplate>
+                                        </ListBox.ItemsPanel>
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <CheckBox Visibility="{Binding MyTitle, Converter={StaticResource TitleVisbilityConverter}}" Content="{Binding MyTitle}" IsChecked="{Binding IsVisble }" Margin="1 0 0 0" Style="{StaticResource CheckBoxDownRounded}" Checked="CheckBox_Changed" Unchecked="CheckBox_Changed"  />
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                        <ListBox.ItemContainerStyle>
+                                            <Style TargetType="ListBoxItem">
+                                                <!--<Setter Property="Width" Value="56" />-->
+                                                <Setter Property="Height" Value="20" />
+                                                <!--<Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>-->
+                                                <Setter Property="Margin" Value="0 0 5 0" />
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="ListBoxItem">
+                                                            <ContentPresenter />
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+
+                                            </Style>
+                                        </ListBox.ItemContainerStyle>
+                                    </ListBox>
+                                    <Button HorizontalAlignment="Right" Width="15" BorderBrush="{x:Null}" FontFamily="Arial" FontSize="14" Foreground="#FF979797" 
+                                            Visibility="{Binding CurrentChip.ChipName, Converter={StaticResource ChannelVisibleConverter}}"
+                                            Padding="0" Margin="0" Click="Waveforms_Channel_Scroll_Right_Click"  Panel.ZIndex="1" Cursor="Hand" DockPanel.Dock="Right">
+                                        <Button.Style>
+                                            <Style TargetType="{x:Type Button}">
+                                                <Setter Property="Background" Value="White"/>
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate>
+                                                            <Grid Background="{TemplateBinding Background}">
+                                                                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  Stroke="#FF1378FF" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Data="M1.1 9.5L6.5 5 1.1.5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                            </Grid>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="#FFC5F1FF"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                </Grid>
+                                <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
+                                    <Grid>
+                                        <ItemsControl ItemsSource="{Binding CurrentChip.Monitor.LineGraphs}" Margin="0,0,0,39">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Vertical" Margin="0" >
+                                                        <!--<Label Content="{Binding MyTitle}" Background="White" FontFamily="Arial" FontSize="14" FontWeight="Medium" Visibility="{Binding IsVisble, Converter={StaticResource wfc}}" Height="25"  HorizontalContentAlignment="Center"/>-->
+                                                        <ListBox ItemsSource="{Binding MySeries}" SelectionMode="Single" Visibility="{Binding IsVisble, Converter={StaticResource wfc}}" Panel.ZIndex="100" BorderThickness="0" Background="Transparent" HorizontalAlignment="Left" Margin="15,25,0,15">
+                                                            <ListBox.ItemsPanel>
+                                                                <ItemsPanelTemplate>
+                                                                    <WrapPanel IsItemsHost="True" ItemWidth="Auto" />
+                                                                </ItemsPanelTemplate>
+                                                            </ListBox.ItemsPanel>
+                                                            <ListBox.ItemTemplate>
+                                                                <DataTemplate>
+                                                                    <CheckBox IsChecked="{Binding Visibility, Converter={StaticResource wfc}, Mode=TwoWay}" >
+                                                                        <CheckBox.Template>
+                                                                            <ControlTemplate TargetType="CheckBox">
+                                                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Background="White" Cursor="Hand" OpacityMask="{x:Null}">
+                                                                                    <TextBlock Text="{Binding Title}" TextAlignment="Center" Foreground="#FF0A3C7F" FontSize="14" FontWeight="Bold" Margin="0,0,4,0" Background="White" IsHitTestVisible="False"/>
+                                                                                    <Rectangle Stroke="{Binding Stroke}" Fill="{Binding Stroke}" Width="10" Height="2" Margin="0,0,10,0" IsHitTestVisible="False"/>
+                                                                                </StackPanel>
+                                                                                <ControlTemplate.Triggers>
+                                                                                    <Trigger Property="IsChecked" Value="true">
+                                                                                        <Setter Property="Opacity" Value="1"/>
+                                                                                    </Trigger>
+                                                                                    <Trigger Property="IsChecked" Value="false">
+                                                                                        <Setter Property="Opacity" Value="0.2"/>
+                                                                                    </Trigger>
+                                                                                </ControlTemplate.Triggers>
+                                                                            </ControlTemplate>
+                                                                        </CheckBox.Template>
+                                                                    </CheckBox>
+                                                                </DataTemplate>
+                                                            </ListBox.ItemTemplate>
+                                                            <ListBox.ItemContainerStyle>
+                                                                <Style TargetType="{x:Type ListBoxItem}">
+                                                                    <Setter Property="Background" Value="White" />
+                                                                    <Setter Property="Template">
+                                                                        <Setter.Value>
+                                                                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                                                <ContentPresenter />
+                                                                            </ControlTemplate>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+
+                                                                </Style>
+                                                            </ListBox.ItemContainerStyle>
+                                                        </ListBox>
+                                                        <lvc:CartesianChart Visibility="{Binding IsVisble, Converter={StaticResource wfc}}" AnimationsSpeed="0:0:0.5" Hoverable="False" BorderBrush="DarkGray" Series="{Binding MySeries}" Height="300" LegendLocation="None" Foreground="black" AxisY="{Binding MyAxisYCollection}" Background="White" Margin="15,0,15,0">
+                                                            <lvc:CartesianChart.AxisX>
+                                                                <!--<lvc:Axis Title="Time (s)" Position="LeftBottom"  >-->
+                                                                <lvc:Axis Title="{Binding WaveformTitle}" Position="LeftBottom"  >
+                                                                    <!--Labels="{Binding MyAxisXLabels}"-->
+                                                                    <lvc:Axis.Separator >
+                                                                        <lvc:Separator Step="{Binding MyAxisXStep}" />
+                                                                    </lvc:Axis.Separator>
+                                                                </lvc:Axis>
+                                                            </lvc:CartesianChart.AxisX>
+                                                        </lvc:CartesianChart>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                        <CheckBox IsChecked="{Binding CurrentChip.Monitor.isRunning}" Visibility="{Binding CurrentChip, Converter={StaticResource WaveFormsPauseButtonVisibleConverter}}" Style="{StaticResource CheckBoxPause}" HorizontalAlignment="Right" Margin="0,360,16,0" Width="72" Foreground="#FF1378FF" VerticalContentAlignment="Center" Padding="0,0,0,29" BorderBrush="#FFE1E7EF" Background="White" FontSize="14" FontWeight="Normal" Height="24" VerticalAlignment="Top" />
+                                    </Grid>
+                                </ScrollViewer>
+
+                            </Grid>
+                        </TabItem>
+
+                        <TabItem Style="{StaticResource TabItem_RegisterMap_HeaderFlat}" Header="Register Map" FontFamily="Arial" FontWeight="Bold" Width="130" Margin="0" FontSize="14" Height="32" >
+                            <Grid Cursor="Arrow">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="75*"/>
+                                    <RowDefinition Height="5"/>
+                                    <RowDefinition Height="25*"/>
+                                </Grid.RowDefinitions>
+                                <DataGrid x:Name="Register_Map_DataGrid" Grid.Row="0" Margin="10,0,0,0" ItemsSource="{Binding CurrentRegisterMap}" BorderBrush="Transparent"  SelectionMode="Single" AlternationCount="2" Style="{DynamicResource DGHeaderStyle}" 
+                                          AutoGenerateColumns="False" IsReadOnly="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" CanUserAddRows="False" CanUserResizeColumns="False" 
+                                          CanUserResizeRows="False" Background="Transparent"  EnableRowVirtualization="False" HeadersVisibility="Column" GridLinesVisibility="None" 
+                                          SelectionChanged="Register_Map_DataGrid_SelectionChanged" CanUserReorderColumns="False" SelectedIndex="{Binding SelectedRegsiterIndex, Mode=TwoWay}" Sorting="Register_Map_DataGrid_Sorting">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn ElementStyle="{StaticResource CellTextVerticalCentered}" MinWidth="160" Width="SizeToCells" Header="Register Name" Binding="{Binding Name}" FontFamily="Arial"  />
+                                        <DataGridTextColumn ElementStyle="{StaticResource CellTextCentered}" MinWidth="55" Width="*" Header="Page" Binding="{Binding Page}" FontFamily="Arial" />
+                                        <DataGridTextColumn ElementStyle="{StaticResource CellTextCentered}" MinWidth="60" Width="*" Header="Address" FontFamily="Arial">
+                                            <DataGridTextColumn.Binding>
+                                                <MultiBinding Converter="{StaticResource multidhc}">
+                                                    <Binding Path="Address" />
+                                                    <Binding Path="Address_H" />
+                                                </MultiBinding>
+                                            </DataGridTextColumn.Binding>
+                                        </DataGridTextColumn>
+                                        <DataGridTextColumn ElementStyle="{StaticResource CellTextCentered}" MinWidth="55"  Width="*" Header="Type" Binding="{Binding DataType}" FontFamily="Arial"/>
+                                        <DataGridTextColumn ElementStyle="{StaticResource CellTextCentered}" MinWidth="55"  Width="*" Header="Right" Binding="{Binding Right}" FontFamily="Arial"/>
+                                        <DataGridTextColumn ElementStyle="{StaticResource CellTextCentered}" MinWidth="60"  Width="*" Header="Value" Binding="{Binding Value, Converter={StaticResource dhc}}" FontFamily="Arial"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                                <GridSplitter Grid.Row="1" Grid.Column="0" Height="5" HorizontalAlignment="Stretch"  Background="Transparent"/>
+                                <Grid Grid.Row="2" >
+                                    <Label Content="Related Parameters" Panel.ZIndex="1" FontSize="11" FontWeight="Normal" Margin="0,0,0,3" Foreground="#FF9EACBF" BorderThickness="0,1,0,0" BorderBrush="#FFE9EDF2" Background="{x:Null}"/>
+                                    <ListView x:Name="Register_Map_Tips" FontWeight="Normal" FontSize="12" BorderThickness="0,1,0,0" Margin="0,25,0,0" BorderBrush="{x:Null}" Foreground="#FF0A3C7F" />
+
+
+
+                                    <!--<Button Style="{StaticResource ButtonRounded}" Cursor="Hand" Content="Export" Command="{Binding OperateChipComand}" CommandParameter="ReadRAM" HorizontalAlignment="Right" Margin="0,0,16,16" VerticalAlignment="Bottom" Width="77" Height="24" Background="White" Foreground="#FF1378FF" BorderBrush="#FFE1E7EF" FontFamily="Arial" FontSize="14"/>-->
+                                    <!--<CheckBox Content="Include Read/Clear Register" HorizontalAlignment="Left" Margin="11,15,0,0" VerticalAlignment="Top" Foreground="#FF6D7278"/>-->
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+
+                        <TabItem Style="{StaticResource TabItem_HeaderFlat}" Visibility="{Binding CurrentChip, Converter={StaticResource BatteryTabVisbilityConverter}, ConverterParameter=Battery}" Header="Battery" FontFamily="Arial" FontWeight="Bold" Width="100" Margin="0" FontSize="14" Height="32">
+                            <Grid Cursor="Arrow">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="75*"/>
+                                    <ColumnDefinition Width="244*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Height="1*"/>
+                                </Grid.RowDefinitions>
+                                <Label Content="Charge in NVDC Mode" FontSize="10" Foreground="#FF9EACBF" Grid.ColumnSpan="2" />
+                                <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="2">
+                                    <StackPanel>
+                                        <lvc:CartesianChart BorderBrush="DarkGray" Series="{Binding CurrentChip.Monitor.LineSeriesCollection}" Height="300" LegendLocation="None" FontSize="10" Foreground="black" 
+                                                    AxisY="{Binding CurrentChip.Monitor.LineAxisYCollection}" Background="White" Margin="10 10 10 0" VerticalAlignment="Top" VerticalContentAlignment="Top" >
+                                            <lvc:CartesianChart.AxisX>
+                                                <lvc:Axis Title="" Position="LeftBottom" Foreground="Black" x:Name="Test" FontSize="11" FontFamily="Arial"  LabelsRotation="-45"
+                                                    Labels="{Binding CurrentChip.Monitor.BatteryLineAxisXLabels}" >
+                                                    <lvc:Axis.Separator>
+                                                        <lvc:Separator Step="1"/>
+                                                    </lvc:Axis.Separator>
+                                                    <lvc:Axis.Sections>
+                                                        <lvc:AxisSection 
+                                                            Value="{Binding CurrentChip.Monitor.BatteryYPointer}" 
+                                                            DataLabel="True"
+                                                            StrokeThickness="0"
+                                                            DisableAnimations="False"
+                                                            DataLabelForeground="Black"                                                            
+                                                            Stroke="{Binding CurrentChip.Monitor.BatteryYPointer,Converter={StaticResource YpointColorConverter}}"/>
+
+
+                                                    </lvc:Axis.Sections>
+                                                </lvc:Axis>
+                                            </lvc:CartesianChart.AxisX>
+                                        </lvc:CartesianChart>
+                                        <!--<Image Grid.Row="1" Source="Images/Battery Charging Profile.jpg"/>-->
+                                    </StackPanel>
+                                </ScrollViewer>
+                                <StackPanel Orientation="Horizontal" Margin="64,15,0,0" Grid.Column="1" Grid.RowSpan="2">
+                                    <Line Stroke="Green" Fill="Transparent" StrokeThickness="1.5" X1="0" Y1="12" X2="13" Y2="12" />
+                                    <Label Content="System Voltage" FontSize="10"/>
+                                    <Label Width="3.5"/>
+                                    <Line Stroke="DarkBlue" Fill = "Transparent" StrokeThickness="1.5" X1="0" Y1="12" X2="13" Y2="12"/>
+                                    <Label Content="Battery Voltage" FontSize="10"/>
+                                    <Label Width="3.5"/>
+                                    <Line Stroke="OrangeRed" Fill="Transparent" StrokeThickness="1.5" X1="0" Y1="12" X2="13" Y2="12"/>
+                                    <Label Content="Charge Current" FontSize="10"/>
+                                </StackPanel>
+                            </Grid>
+                        </TabItem>
+
+                        <TabItem Style="{StaticResource TabItem_HeaderFlat}" Header="JEITA Profile" Visibility="{Binding CurrentChip, Converter={StaticResource BatteryTabVisbilityConverter}, ConverterParameter=JEITA}" FontFamily="Arial" FontWeight="Bold" Width="110" Margin="0" FontSize="14" Height="32">
+                            <TabControl BorderThickness="0" >
+                                <TabItem Header="NTC Monitor" Style="{StaticResource BlueRoundTabItemStyle}" FontSize="11">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition Height="5"/>
+                                        </Grid.RowDefinitions>
+                                        <!--<Image Source="Images/JetiaProfile.PNG" Margin="20 10"/>-->
+                                        <ScrollViewer Name="scrollViewer" Grid.Column="0">
+                                            <StackPanel Grid.Row="0">
+                                                <ItemsControl ItemsSource="{Binding CurrentChip.Monitor.MyLineSeriesCollection}" >
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Vertical" Margin="0 20 0 0" >
+                                                                <Label Content="{Binding LineTitle}" Height="30" HorizontalAlignment="Center"/>
+                                                                <lvc:CartesianChart Series="{Binding LineSeriesCollection}" Height="200" FontSize="10" Foreground="Black"
+                                                                                    AxisY="{Binding LineAxisYCollection}" Margin="28 0 0 0" VerticalAlignment="Top" VerticalContentAlignment="Top">
+                                                                    <lvc:CartesianChart.AxisX>
+                                                                        <lvc:Axis Title="" Position="LeftBottom" FontSize="11" FontFamily="Arial"  LabelsRotation="0" />
+                                                                        <!--Labels="{Binding JEITALineAxisXLabels}">
+                                                                            <lvc:Axis.Separator>
+                                                                                <lvc:Separator Step="1"/>
+                                                                            </lvc:Axis.Separator>
+                                                                            <lvc:Axis.Sections>
+                                                                                <lvc:AxisSection 
+                                                                                    Value="{Binding JEITAYPointer}" 
+                                                                                    DataLabel="True"
+                                                                                    StrokeThickness="0"
+                                                                                    DisableAnimations="False"
+                                                                                    DataLabelForeground="Black"                                                            
+                                                                                    Stroke="{Binding JEITAYPointer,Converter={StaticResource YpointColorConverter},ConverterParameter=JEITA}"/>
+                                                                            </lvc:Axis.Sections>-->
+
+                                                                    </lvc:CartesianChart.AxisX>
+                                                                </lvc:CartesianChart>
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+
+                                                <!--<lvc:CartesianChart Grid.Row="0" BorderBrush="DarkGray" Series="{Binding CurrentChip.Monitor.LineSeriesCollection}" Height="200" LegendLocation="Top" FontSize="10" Foreground="black" 
+                                                    AxisY="{Binding CurrentChip.Monitor.LineAxisYCollection}" Background="White" Margin="10 10 10 0" VerticalAlignment="Top" VerticalContentAlignment="Top">
+                                                <lvc:CartesianChart.AxisX>
+                                                    <lvc:Axis Title="" Position="LeftBottom" MinValue="0" MaxValue="12"/>
+                                                </lvc:CartesianChart.AxisX>
+                                            </lvc:CartesianChart>-->
+                                            </StackPanel>
+                                        </ScrollViewer>
+                                    </Grid>
+                                </TabItem>
+                                <TabItem Header="NTC Calculate" Style="{StaticResource BlueRoundTabItemStyle}" FontSize="11">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition Height="2*"/>
+                                        </Grid.RowDefinitions>
+                                        <Image Source="Images/NTCCalculate(1).PNG" Margin="5 0" MouseLeftButtonUp="Image_MouseLeftButtonUp" Cursor="Hand">
+                                            <Image.ToolTip>
+                                                <ToolTip BorderBrush="Transparent" Background="Transparent">
+                                                    <Border CornerRadius="5" Background="#FF0C98FF">
+                                                        <TextBlock TextWrapping="Wrap" FontFamily="Arial" Foreground="White" Margin="5" Background="Transparent" Text="Click To Enlarge (Pop-Up)" MaxWidth="300"/>
+                                                    </Border>
+                                                </ToolTip>
+                                            </Image.ToolTip>
+                                        </Image>
+                                        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                                            <Grid Grid.Row="1">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition/>
+                                                    <RowDefinition Height="1.5*"/>
+                                                    <RowDefinition/>
+                                                    <RowDefinition Height="0.5*"/>
+                                                    <RowDefinition/>
+                                                    <RowDefinition Height="0.5*"/>
+                                                    <RowDefinition/>
+                                                    <RowDefinition Height="1.5*"/>
+                                                    <RowDefinition/>
+                                                    <RowDefinition Height="1.5*"/>
+                                                    <RowDefinition/>
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Grid.Row="0" Text="Step 1:Load Temperature NTC Settings in the Advanced Parameters menu" FontSize="14" Foreground="#FF0A3C7F" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                                <Grid Grid.Row="1" Margin="5 0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                    </Grid.RowDefinitions>
+                                                    <TextBlock Grid.Row="0" Grid.Column="0" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Cold Threshold" Margin="5 2"/>
+                                                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="NTCColdTxt" IsReadOnly="True" Text="{Binding CurrentPart.strThermistorValue,Converter={StaticResource NTCTxtValueConverter},ConverterParameter='Cold'}" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" Style="{DynamicResource TextBoxStyle1}" Background="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" BorderBrush="White" MinWidth="35" BorderThickness="0" FontSize="12" Height="26"/>
+                                                    <TextBlock Grid.Row="0" Grid.Column="2" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Cool Threshold" Margin="5 2"/>
+                                                    <TextBox Grid.Row="0" Grid.Column="3" x:Name="NTCCoolTxt" IsReadOnly="True" Text="{Binding CurrentPart.strThermistorValue,Converter={StaticResource NTCTxtValueConverter},ConverterParameter='Cool'}" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" Style="{DynamicResource TextBoxStyle1}" Background="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" BorderBrush="White" MinWidth="35" BorderThickness="0" FontSize="12" Height="26"/>
+                                                    <TextBlock Grid.Row="1" Grid.Column="0" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Warm Threshold" Margin="5 2"/>
+                                                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="NTCWarmTxt" IsReadOnly="True" Text="{Binding CurrentPart.strThermistorValue,Converter={StaticResource NTCTxtValueConverter},ConverterParameter='Warm'}" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" Style="{DynamicResource TextBoxStyle1}" Background="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" BorderBrush="White" MinWidth="35" BorderThickness="0" FontSize="12" Height="26"/>
+                                                    <TextBlock Grid.Row="1" Grid.Column="2" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Hot  Threshold" Margin="5 2"/>
+                                                    <TextBox Grid.Row="1" Grid.Column="3" x:Name="NTCHotTxt" IsReadOnly="True" Text="{Binding CurrentPart.strThermistorValue,Converter={StaticResource NTCTxtValueConverter},ConverterParameter='Hot'}" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" Style="{DynamicResource TextBoxStyle1}" Background="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" BorderBrush="White" MinWidth="35" BorderThickness="0" FontSize="12" Height="26"/>
+                                                </Grid>
+                                                <TextBlock Grid.Row="2" Text="Step 2:Please enter the resistance value of NTC at 25°C and  β-factor of NTC" FontSize="14" Foreground="#FF0A3C7F" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                                <Grid Grid.Row="3" Margin="5 0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Width="60" Grid.Column="0" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" Text="RNTC(kΩ)" Margin="5 2"/>
+                                                    <TextBox x:Name="RNTCTxt" Grid.Column="1" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" Style="{DynamicResource TextBoxStyle1}" Background="#FFCEDFF6" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" BorderBrush="White" MinWidth="35" MaxWidth="80" HorizontalAlignment="Left" Text="{Binding CurrentChip.Monitor.RNTCValue}" FontSize="12" Height="26" BorderThickness="0" TextChanged="Txt_TextChanged"/>
+                                                    <TextBlock Width="60" Grid.Column="2" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" Text="β-factor(K)" Margin="5 2"/>
+                                                    <TextBox x:Name="βFactorTxt" Grid.Column="3" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" Style="{DynamicResource TextBoxStyle1}" Background="#FFCEDFF6" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" BorderBrush="White" MinWidth="35" MaxWidth="80" HorizontalAlignment="Left" Text="{Binding CurrentChip.Monitor.FactValue}" FontSize="12" Height="26" BorderThickness="0" TextChanged="Txt_TextChanged"/>
+                                                </Grid>
+                                                <TextBlock Grid.Row="4" Text="Step 3:Please input Pull up resistor RT1 and parallel resistor RT2" FontSize="14" Foreground="#FF0A3C7F" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                                <Grid Grid.Row="5" Margin="5 0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <TextBlock Width="60" Grid.Column="0" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Rpull(kΩ)" Margin="5 2"/>
+                                                    <TextBox x:Name="Rt1Txt" Grid.Column="1" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" Style="{DynamicResource TextBoxStyle1}" Background="#FFCEDFF6" HorizontalContentAlignment="Left" HorizontalAlignment="Left" VerticalContentAlignment="Center" BorderBrush="White" MinWidth="35" MaxWidth="80" Text="{Binding CurrentChip.Monitor.RPullValue}" FontSize="12" Height="26" BorderThickness="0" TextChanged="Txt_TextChanged" />
+                                                    <TextBlock Width="60" Grid.Column="2" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Rp(kΩ)" Margin="5 2"/>
+                                                    <TextBox x:Name="Rt2Txt" Grid.Column="3" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" Style="{DynamicResource TextBoxStyle1}" Background="#FFCEDFF6" HorizontalContentAlignment="Left" HorizontalAlignment="Left" VerticalContentAlignment="Center" BorderBrush="White" MinWidth="35" MaxWidth="80" Text="{Binding CurrentChip.Monitor.RpValue}" FontSize="12" Height="26" BorderThickness="0" TextChanged="Txt_TextChanged"/>
+                                                </Grid>
+                                                <TextBlock Grid.Row="6" Text="Step 4:Calculate RNTC @ threshold" FontSize="14" Foreground="#FF0A3C7F" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                                <Grid Grid.Row="7" Margin="5 0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                    </Grid.RowDefinitions>
+                                                    <TextBlock Grid.Row="0" Grid.Column="0" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Cold Resistance(kΩ)" Margin="5 2"/>
+                                                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="Cold_ResistanceTxt" IsReadOnly="True" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" Style="{DynamicResource TextBoxStyle1}" Background="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" BorderBrush="White" MinWidth="35" BorderThickness="0" FontSize="12" Height="26">
+                                                        <TextBox.Text>
+                                                            <MultiBinding Converter="{StaticResource NTCResistanceTxtValueConverter}" ConverterParameter="Cold">
+                                                                <Binding Path="CurrentPart.strThermistorValue"/>
+                                                                <Binding ElementName="Rt1Txt"  Path="Text"/>
+                                                                <Binding ElementName="Rt2Txt"  Path="Text"/>
+                                                            </MultiBinding>
+                                                        </TextBox.Text>
+                                                    </TextBox>
+                                                    <TextBlock Grid.Row="0" Grid.Column="2" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Cool Resistance(kΩ)" Margin="5 2"/>
+                                                    <TextBox Grid.Row="0" Grid.Column="3" x:Name="Cool_ResistanceTxt" IsReadOnly="True" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" Style="{DynamicResource TextBoxStyle1}" Background="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" BorderBrush="White" MinWidth="35" BorderThickness="0" FontSize="12" Height="26">
+                                                        <TextBox.Text>
+                                                            <MultiBinding Converter="{StaticResource NTCResistanceTxtValueConverter}" ConverterParameter="Cool">
+                                                                <Binding Path="CurrentPart.strThermistorValue"/>
+                                                                <Binding ElementName="Rt1Txt"  Path="Text"/>
+                                                                <Binding ElementName="Rt2Txt"  Path="Text"/>
+                                                            </MultiBinding>
+                                                        </TextBox.Text>
+                                                    </TextBox>
+                                                    <TextBlock Grid.Row="1" Grid.Column="0" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Warm Resistance(kΩ)" Margin="5 2"/>
+                                                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="Warm_ResistanceTxt" IsReadOnly="True" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" Style="{DynamicResource TextBoxStyle1}" Background="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" BorderBrush="White" MinWidth="35" BorderThickness="0" FontSize="12" Height="26">
+                                                        <TextBox.Text>
+                                                            <MultiBinding Converter="{StaticResource NTCResistanceTxtValueConverter}" ConverterParameter="Warm">
+                                                                <Binding Path="CurrentPart.strThermistorValue"/>
+                                                                <Binding ElementName="Rt1Txt"  Path="Text"/>
+                                                                <Binding ElementName="Rt2Txt"  Path="Text"/>
+                                                            </MultiBinding>
+                                                        </TextBox.Text>
+                                                    </TextBox>
+                                                    <TextBlock Grid.Row="1" Grid.Column="2" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Hot  Resistance(kΩ)" Margin="5 2"/>
+                                                    <TextBox Grid.Row="1" Grid.Column="3" x:Name="Hot_ResistanceTxt" IsReadOnly="True" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" Style="{DynamicResource TextBoxStyle1}" Background="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" BorderBrush="White" MinWidth="35" BorderThickness="0" FontSize="12" Height="26">
+                                                        <TextBox.Text>
+                                                            <MultiBinding Converter="{StaticResource NTCResistanceTxtValueConverter}" ConverterParameter="Hot">
+                                                                <Binding Path="CurrentPart.strThermistorValue"/>
+                                                                <Binding ElementName="Rt1Txt"  Path="Text"/>
+                                                                <Binding ElementName="Rt2Txt"  Path="Text"/>
+                                                            </MultiBinding>
+                                                        </TextBox.Text>
+                                                    </TextBox>
+                                                </Grid>
+
+                                                <TextBlock Grid.Row="8" Text="Step 5:Calculate temperature @ threshold" FontSize="14" Foreground="#FF0A3C7F" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                                <Grid Grid.Row="9" Margin="5 0">
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition/>
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                    </Grid.RowDefinitions>
+                                                    <TextBlock Grid.Row="0" Grid.Column="0" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Cold Temperature(℃)" Margin="5 2"/>
+                                                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="Cold_TemperatureTxt" IsReadOnly="True" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" Style="{DynamicResource TextBoxStyle1}" Background="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" BorderBrush="White" MinWidth="35" BorderThickness="0" FontSize="12" Height="26">
+                                                        <TextBox.Text>
+                                                            <MultiBinding Converter="{StaticResource NTCTemperatureValueConverter}">
+                                                                <Binding ElementName="Cold_ResistanceTxt" Path="Text"/>
+                                                                <Binding ElementName="RNTCTxt"  Path="Text"/>
+                                                                <Binding ElementName="βFactorTxt"  Path="Text"/>
+                                                            </MultiBinding>
+                                                        </TextBox.Text>
+                                                    </TextBox>
+                                                    <TextBlock Grid.Row="0" Grid.Column="2" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Cool Temperature(℃)" Margin="5 2"/>
+                                                    <TextBox Grid.Row="0" Grid.Column="3" x:Name="Cool_TemperatureTxt" IsReadOnly="True" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" Style="{DynamicResource TextBoxStyle1}" Background="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" BorderBrush="White" MinWidth="35" BorderThickness="0" FontSize="12" Height="26">
+                                                        <TextBox.Text>
+                                                            <MultiBinding Converter="{StaticResource NTCTemperatureValueConverter}" ConverterParameter="Cool;T">
+                                                                <Binding ElementName="Cool_ResistanceTxt" Path="Text"/>
+                                                                <Binding ElementName="RNTCTxt"  Path="Text"/>
+                                                                <Binding ElementName="βFactorTxt"  Path="Text"/>
+                                                            </MultiBinding>
+                                                        </TextBox.Text>
+                                                    </TextBox>
+                                                    <TextBlock Grid.Row="1" Grid.Column="0" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Warm Temperature(℃)" Margin="5 2"/>
+                                                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="Warm_TemperatureTxt" IsReadOnly="True" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" Style="{DynamicResource TextBoxStyle1}" Background="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" BorderBrush="White" MinWidth="35" BorderThickness="0" FontSize="12" Height="26">
+                                                        <TextBox.Text>
+                                                            <MultiBinding Converter="{StaticResource NTCTemperatureValueConverter}">
+                                                                <Binding ElementName="Warm_ResistanceTxt" Path="Text"/>
+                                                                <Binding ElementName="RNTCTxt"  Path="Text"/>
+                                                                <Binding ElementName="βFactorTxt"  Path="Text"/>
+                                                            </MultiBinding>
+                                                        </TextBox.Text>
+                                                    </TextBox>
+                                                    <TextBlock Grid.Row="1" Grid.Column="2" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" Text="Hot  Temperature(℃)" Margin="5 2"/>
+                                                    <TextBox Grid.Row="1" Grid.Column="3" x:Name="Hot_TemperatureTxt" IsReadOnly="True" FontFamily="Arial" FontWeight="Normal" Foreground="#FF496180" Style="{DynamicResource TextBoxStyle1}" Background="White" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" BorderBrush="White" MinWidth="35" BorderThickness="0" FontSize="12" Height="26">
+                                                        <TextBox.Text>
+                                                            <MultiBinding Converter="{StaticResource NTCTemperatureValueConverter}">
+                                                                <Binding ElementName="Hot_ResistanceTxt" Path="Text"/>
+                                                                <Binding ElementName="RNTCTxt"  Path="Text"/>
+                                                                <Binding ElementName="βFactorTxt"  Path="Text"/>
+                                                            </MultiBinding>
+                                                        </TextBox.Text>
+                                                    </TextBox>
+                                                </Grid>
+                                            </Grid>
+                                        </ScrollViewer>
+                                    </Grid>
+                                </TabItem>
+
+                            </TabControl>
+                        </TabItem>
+
+                        <TabItem Style="{StaticResource TabItem_HeaderFlat}" Header="Log Panel"  FontFamily="Arial" FontWeight="Bold" Width="100" Margin="0" FontSize="14" Height="32">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="56"/>
+                                </Grid.RowDefinitions>
+
+                                <DataGrid Grid.Row="0" HeadersVisibility="Column" Margin="1,5,1,0" Cursor="Arrow" ItemsSource="{Binding LogData}" ColumnWidth="SizeToCells" SelectionMode="Single" AlternationCount="2" Style="{DynamicResource DGHeaderStyle}" AutoGenerateColumns="False" IsReadOnly="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Background="Transparent" BorderBrush="#FFE8EBE4"  >
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn ElementStyle="{StaticResource CellTextCentered}" MinWidth="130" Header="Date and Time" Binding="{Binding DateTime}" FontFamily="Arial" />
+                                        <DataGridTextColumn ElementStyle="{StaticResource CellTextCentered}" MinWidth="90"  Header="Register" Binding="{Binding RegisterName}" FontFamily="Arial"/>
+                                        <DataGridTextColumn ElementStyle="{StaticResource CellTextCentered}" MinWidth="90"  Header="Address(Hex)" Binding="{Binding RegisterAddress}" FontFamily="Arial"/>
+                                        <DataGridTextColumn ElementStyle="{StaticResource CellTextCentered}" MinWidth="90"  Header="Value" Binding="{Binding RegisterValue}" FontFamily="Arial"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+
+                                <Grid Grid.Row="1">
+                                    <Button Style="{StaticResource ButtonRoundedWhite}" Cursor="Hand" Content="Clear Logs" Command="{Binding OperateChipComand}" CommandParameter="ClearLog" HorizontalAlignment="Right" Margin="0,0,16,16" VerticalAlignment="Bottom" Width="100" Height="24" BorderBrush="#FFE1E7EF" Foreground="#FF1378FF" FontFamily="Arial" FontSize="14" FontWeight="Normal"/>
+                                    <Button Style="{StaticResource ButtonRoundedWhite}" Cursor="Hand" Content="Copy Logs" Command="{Binding OperateChipComand}" CommandParameter="CopyLog" HorizontalAlignment="Right" Margin="0,0,121,16" VerticalAlignment="Bottom" Width="100" Height="24" BorderBrush="#FFE1E7EF" Foreground="#FF1378FF" FontFamily="Arial" FontSize="14" FontWeight="Normal"/>
+                                </Grid>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+            </Grid>
+
+        </Grid>
+    </Grid>
+</Page>
